@@ -1,6 +1,4 @@
-
-
-### Projeto 1 - Document Store (Banco de Dados NoSQL)
+# Projeto 1 - Document Store (Banco de Dados NoSQL)
 
 Este projeto demonstra a modelagem e consulta de dados acadêmicos utilizando MongoDB como um banco de dados orientado a documentos. Ele inclui scripts para gerar dados fictícios, inseri-los no banco e realizar consultas específicas.
 
@@ -49,23 +47,33 @@ pip install pymongo faker
     ```
 
 3.  **Executar Consultas (Queries):**
-    Existem duas maneiras principais de executar as consultas predefinidas:
+    Existem duas maneiras principais de executar as consultas predefinidas no banco `feidb`:
 
-    *   **Usando `mongosh` e Arquivos `.js`:**
-        Você pode carregar e executar os arquivos de consulta individuais (prefixados com `Query_`) diretamente no `mongosh`. Conecte-se ao seu MongoDB, use o banco `feidb` e então carregue o arquivo desejado.
-        Exemplo para a Query 1:
-        ```bash
-        mongosh
-        use feidb
-        load("Query_1_Historico_aluno")
-        ```
-        *Nota: Pode ser necessário ajustar o ID dentro de cada arquivo `.js` antes de carregá-lo para consultar diferentes entidades.*
+    *   **Método 1: Usando o `mongosh` (Recomendado para testes rápidos ou via Compass)**
+        Esta abordagem permite executar as consultas JavaScript diretamente. É especialmente útil se você estiver usando o **MongoDB Compass**, que possui um shell `mongosh` embutido.
+        1.  Conecte-se à sua instância MongoDB (por exemplo, usando o MongoDB Compass ou o comando `mongosh` no terminal).
+        2.  Selecione o banco de dados correto:
+            ```bash
+            use feidb
+            ```
+        3.  Abra o arquivo `.js` da consulta desejada (por exemplo, `Query_1_Historico_aluno.js`) em um editor de texto.
+        4.  **Importante:** Verifique se a consulta no arquivo `.js` requer um ID específico (como um `aluno_id`). Se necessário, **edite o valor do ID diretamente no código** antes de copiar.
+        5.  **Copie todo o conteúdo** do arquivo `.js`.
+        6.  **Cole o código copiado** diretamente no prompt do `mongosh` (seja no Compass ou no terminal) e pressione Enter para executar a consulta.
 
-    *   **Usando o Script Python Interativo:**
-        Execute o script <mcfile name="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py"></mcfile> para um menu interativo que permite escolher e executar as consultas. O script solicitará os IDs necessários.
+        *Alternativa (`load` no terminal):* Se preferir usar o terminal e o arquivo `.js` estiver no diretório atual, você ainda pode usar o comando `load`:
         ```bash
-        python query.py
+        # Exemplo para a Query 1 no terminal mongosh
+        load("Query_1_Historico_aluno.js") # Certifique-se que o nome do arquivo está correto
         ```
+
+    *   **Método 2: Usando o Script Python Interativo (`query.py`) (Recomendado para facilidade)**
+        Para uma experiência mais **simples e guiada**, você pode usar o script Python fornecido. Ele apresenta um menu para selecionar a consulta e solicita os IDs necessários interativamente.
+        1.  No seu terminal, execute o script:
+            ```bash
+            python query.py
+            ```
+        2.  Siga as instruções apresentadas no menu para escolher e executar a consulta desejada.
 
 ## Descrição das Coleções do Banco de Dados `feidb`
 
@@ -123,19 +131,17 @@ O banco de dados `feidb` contém as seguintes coleções:
 As seguintes consultas estão disponíveis:
 
 1.  **Histórico Escolar de um Aluno:** Dado o ID de um aluno, retorna seu nome e o histórico de disciplinas cursadas (código, nome, semestre, nota, status).
-    *   Implementação:[ <mcfile name="Query_1_Historico_aluno" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_1_Historico_aluno"></mcfile>, <mcsymbol name="query_historico_aluno" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="12" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_1_Historico_aluno)
+    *   Implementação:[ <mcfile name="Query_1_Historico_aluno.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_1_Historico_aluno.js"></mcfile>, <mcsymbol name="query_historico_aluno" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="12" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_1_Historico_aluno.js)
 
 2.  **Histórico de Disciplinas Ministradas por um Professor:** Dado o ID de um professor, retorna seu nome e as disciplinas que ele ministrou (código, nome, semestre).
-    *   Implementação: [<mcfile name="Query_2_Histórico_Ministrado_Prof" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_2_Histórico_Ministrado_Prof"></mcfile>, <mcsymbol name="query_historico_professor" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="70" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_2_Hist%C3%B3rico_Ministrado_Prof)
+    *   Implementação: [<mcfile name="Query_2_Histórico_Ministrado_Prof.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_2_Histórico_Ministrado_Prof.js"></mcfile>, <mcsymbol name="query_historico_professor" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="70" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_2_Hist%C3%B3rico_Ministrado_Prof.js)
 
 3.  **Listar Alunos Graduados:** Dado um semestre/ano (formato "AAAA.S"), lista os alunos (ID e nome) que se graduaram nesse período.
-    *   Implementação: [<mcfile name="Query_3_Lista_aluno" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_3_Lista_aluno"></mcfile>, <mcsymbol name="query_alunos_graduados" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="151" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_3_Lista_aluno)
+    *   Implementação: [<mcfile name="Query_3_Lista_aluno.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_3_Lista_aluno.js"></mcfile>, <mcsymbol name="query_alunos_graduados" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="151" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_3_Lista_aluno.js)
 
 4.  **Listar Professores Chefes de Departamento:** Lista todos os professores que são chefes de departamento, juntamente com o nome e código do departamento que chefiam.
-    *   Implementação:[ <mcfile name="Query_4_Professor_chefe_departamento" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_4_Professor_chefe_departamento"></mcfile>, <mcsymbol name="query_chefes_departamento" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="187" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_4_Professor_chefe_departamento)
+    *   Implementação:[ <mcfile name="Query_4_Professor_chefe_departamento.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_4_Professor_chefe_departamento.js"></mcfile>, <mcsymbol name="query_chefes_departamento" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="187" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_4_Professor_chefe_departamento.js)
 
 5.  **Detalhes de um Grupo de TCC:** Dado o ID de um grupo de TCC, retorna o semestre, o nome do orientador e a lista de nomes dos alunos participantes.
-    *   Implementação: [<mcfile name="Query_5_Grupo_TCC" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_5_Grupo_TCC"></mcfile>, <mcsymbol name="query_grupo_tcc" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="231" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_5_Grupo_TCC)
+    *   Implementação: [<mcfile name="Query_5_Grupo_TCC.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_5_Grupo_TCC.js"></mcfile>, <mcsymbol name="query_grupo_tcc" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="231" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_5_Grupo_TCC.js)
 ```
-
-        
