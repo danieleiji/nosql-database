@@ -19,6 +19,10 @@ Você pode instalar as dependências Python usando pip:
 pip install pymongo faker
 ```
 
+**Nota sobre a Criação das Coleções:**
+
+Este projeto não inclui scripts `.js` separados especificamente para a criação das coleções (`db.createCollection(...)`). O MongoDB cria coleções (e o próprio banco de dados `feidb`, se ele não existir) automaticamente na primeira vez que um documento é inserido nelas. O script `insert.py`, ao ser executado, realiza essa primeira inserção para cada tipo de dado (alunos, professores, etc.), garantindo assim que todas as coleções necessárias sejam criadas implicitamente no banco `feidb`. Como alternativa, o comando `use feidb` no `mongosh` cria o banco de dados, mas as coleções ainda serão criadas na primeira inserção pelo `insert.py`.
+
 ### MongoDB
 
 *   É necessário ter uma instância do MongoDB em execução (localmente ou em um servidor). A URI de conexão padrão nos scripts é `mongodb://localhost:27017/`.
@@ -44,28 +48,29 @@ pip install pymongo faker
     *   **Atenção:** Por padrão, o script `insert.py` (com `LIMPAR_COLECOES_ANTES = True`) limpará as coleções antes de inserir novos dados.
     ```bash
     python insert.py
+    
     ```
-
 3.  **Executar Consultas (Queries):**
     Existem duas maneiras principais de executar as consultas predefinidas no banco `feidb`:
 
-    *   **Método 1: Usando o `mongosh` (Recomendado para testes rápidos ou via Compass)**
-        Esta abordagem permite executar as consultas JavaScript diretamente. É especialmente útil se você estiver usando o **MongoDB Compass**, que possui um shell `mongosh` embutido.
-        1.  Conecte-se à sua instância MongoDB (por exemplo, usando o MongoDB Compass ou o comando `mongosh` no terminal).
-        2.  Selecione o banco de dados correto:
-            ```bash
-            use feidb
-            ```
-        3.  Abra o arquivo `.js` da consulta desejada (por exemplo, `Query_1_Historico_aluno.js`) em um editor de texto.
-        4.  **Importante:** Verifique se a consulta no arquivo `.js` requer um ID específico (como um `aluno_id`). Se necessário, **edite o valor do ID diretamente no código** antes de copiar.
-        5.  **Copie todo o conteúdo** do arquivo `.js`.
-        6.  **Cole o código copiado** diretamente no prompt do `mongosh` (seja no Compass ou no terminal) e pressione Enter para executar a consulta.
+    *   **Método 1: Usando o Shell Embutido do MongoDB Compass**
+        Esta é uma forma direta de testar as consultas JavaScript.
+        1.  Abra o **MongoDB Compass** e conecte-se à sua instância MongoDB.
+        2.  No painel esquerdo, selecione ou crie o banco de dados `feidb`.
+        3.  Clique na aba `_MongoSH` para abrir o shell embutido.
+        4.  Abra o arquivo `.js` da consulta desejada (por exemplo, `Query_1_Historico_aluno.js`) em um editor de texto.
+        5.  **Importante:** Muitas consultas requerem um ID específico (como `aluno_id`). Verifique o código no arquivo `.js` e, se necessário, **edite o valor do ID diretamente no código** antes de copiar.
+        6.  **Copie todo o conteúdo** do arquivo `.js` editado.
+        7.  **Cole o código copiado** diretamente no prompt do `_MongoSH` dentro do Compass e pressione Enter para executar a consulta. Os resultados aparecerão na janela do shell.
 
-        *Alternativa (`load` no terminal):* Se preferir usar o terminal e o arquivo `.js` estiver no diretório atual, você ainda pode usar o comando `load`:
-        ```bash
-        # Exemplo para a Query 1 no terminal mongosh
-        load("Query_1_Historico_aluno.js") # Certifique-se que o nome do arquivo está correto
-        ```
+    *   **Método 2: Usando o Script Python Interativo (`query.py`) (Recomendado para Facilidade)**
+        Para uma experiência mais **simples e guiada**, sem precisar editar arquivos `.js` manualmente, utilize o script Python. Ele apresenta um menu para selecionar a consulta e solicita os IDs necessários interativamente.
+        1.  No seu terminal, navegue até o diretório do projeto.
+        2.  Execute o script:
+            ```bash
+            python query.py
+            ```
+        3.  Siga as instruções apresentadas no menu para escolher a consulta e fornecer os dados solicitados (como IDs ou semestres). Os resultados serão impressos diretamente no terminal.
 
     *   **Método 2: Usando o Script Python Interativo (`query.py`) (Recomendado para facilidade)**
         Para uma experiência mais **simples e guiada**, você pode usar o script Python fornecido. Ele apresenta um menu para selecionar a consulta e solicita os IDs necessários interativamente.
