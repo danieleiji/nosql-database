@@ -72,14 +72,6 @@ Este projeto não inclui scripts `.js` separados especificamente para a criaçã
             ```
         3.  Siga as instruções apresentadas no menu para escolher a consulta e fornecer os dados solicitados (como IDs ou semestres). Os resultados serão impressos diretamente no terminal.
 
-    *   **Método 2: Usando o Script Python Interativo (`query.py`) (Recomendado para facilidade)**
-        Para uma experiência mais **simples e guiada**, você pode usar o script Python fornecido. Ele apresenta um menu para selecionar a consulta e solicita os IDs necessários interativamente.
-        1.  No seu terminal, execute o script:
-            ```bash
-            python query.py
-            ```
-        2.  Siga as instruções apresentadas no menu para escolher e executar a consulta desejada.
-
 ## Descrição das Coleções do Banco de Dados `feidb`
 
 O banco de dados `feidb` contém as seguintes coleções:
@@ -140,7 +132,7 @@ As seguintes consultas estão disponíveis:
 2.  **Histórico de Disciplinas Ministradas por um Professor:** Dado o ID de um professor, retorna seu nome e as disciplinas que ele ministrou (código, nome, semestre).
     *   Implementação:https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_2_Hist%C3%B3rico_Ministrado_Prof
 
-3.  **Listar Alunos Graduados:** Dado um semestre/ano (formato "AAAA.S"), lista os alunos (ID e nome) que se graduaram nesse período.
+3.  **Listar Alunos Graduados:** Forneça um semestre/ano (formato "AAAA.S") para listar os alunos (ID e nome). A consulta busca na coleção `alunos` por aqueles que atendem a duas condições: `graduado` é `true` e `semestre_graduacao` corresponde ao período informado.
     *   Implementação: https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_3_Lista_aluno
 
 4.  **Listar Professores Chefes de Departamento:** Lista todos os professores que são chefes de departamento, juntamente com o nome e código do departamento que chefiam.
