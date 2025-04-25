@@ -1,4 +1,4 @@
-# Projeto 1 - Document Store (Modelo Acadêmico)
+# Projeto 1 - Document Store
 
 ## Descrição
 
