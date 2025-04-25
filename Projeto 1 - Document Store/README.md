@@ -19,7 +19,7 @@ Você pode instalar as dependências Python usando pip:
 
 ```bash
 pip install pymongo faker
-
+```
 
 ### MongoDB
 
