@@ -1,4 +1,4 @@
-```markdown
+```
 # Projeto 1 - Document Store (Modelo Acadêmico)
 
 ## Descrição
@@ -94,11 +94,7 @@ O banco de dados `feidb` utiliza as seguintes coleções para armazenar os dados
 
 Embora o MongoDB crie as coleções automaticamente na primeira inserção, você pode criá-las explicitamente no `mongosh` se desejar. Conecte-se ao banco (`mongosh "mongodb://localhost:27017/feidb"`) e execute:
 
-<<<<<<< HEAD
-```
-=======
-```javascript
->>>>>>> a2cf107f5c665d903bf18760cffecfb872640e10
+
 db.createCollection("departamentos")
 db.createCollection("cursos")
 db.createCollection("disciplinas")
@@ -163,4 +159,3 @@ Siga estes passos na ordem correta, **garantindo que o MongoDB esteja rodando**:
         Compare os resultados obtidos no `mongosh` com os resultados do script `query.py` para as mesmas operações.
 
 ```
->>>>>>> a2cf107f5c665d903bf18760cffecfb872640e10
