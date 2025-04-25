@@ -131,17 +131,16 @@ O banco de dados `feidb` contém as seguintes coleções:
 As seguintes consultas estão disponíveis:
 
 1.  **Histórico Escolar de um Aluno:** Dado o ID de um aluno, retorna seu nome e o histórico de disciplinas cursadas (código, nome, semestre, nota, status).
-    *   Implementação:[ <mcfile name="Query_1_Historico_aluno.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_1_Historico_aluno.js"></mcfile>, <mcsymbol name="query_historico_aluno" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="12" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_1_Historico_aluno.js)
-
+    *   Implementação:https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_1_Historico_aluno
 2.  **Histórico de Disciplinas Ministradas por um Professor:** Dado o ID de um professor, retorna seu nome e as disciplinas que ele ministrou (código, nome, semestre).
-    *   Implementação: [<mcfile name="Query_2_Histórico_Ministrado_Prof.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_2_Histórico_Ministrado_Prof.js"></mcfile>, <mcsymbol name="query_historico_professor" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="70" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_2_Hist%C3%B3rico_Ministrado_Prof.js)
+    *   Implementação:https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_2_Hist%C3%B3rico_Ministrado_Prof
 
 3.  **Listar Alunos Graduados:** Dado um semestre/ano (formato "AAAA.S"), lista os alunos (ID e nome) que se graduaram nesse período.
-    *   Implementação: [<mcfile name="Query_3_Lista_aluno.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_3_Lista_aluno.js"></mcfile>, <mcsymbol name="query_alunos_graduados" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="151" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_3_Lista_aluno.js)
+    *   Implementação: https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_3_Lista_aluno
 
 4.  **Listar Professores Chefes de Departamento:** Lista todos os professores que são chefes de departamento, juntamente com o nome e código do departamento que chefiam.
-    *   Implementação:[ <mcfile name="Query_4_Professor_chefe_departamento.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_4_Professor_chefe_departamento.js"></mcfile>, <mcsymbol name="query_chefes_departamento" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="187" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_4_Professor_chefe_departamento.js)
-
+    *   Implementação: https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_4_Professor_chefe_departamento
+    *   
 5.  **Detalhes de um Grupo de TCC:** Dado o ID de um grupo de TCC, retorna o semestre, o nome do orientador e a lista de nomes dos alunos participantes.
-    *   Implementação: [<mcfile name="Query_5_Grupo_TCC.js" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_5_Grupo_TCC.js"></mcfile>, <mcsymbol name="query_grupo_tcc" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="231" type="function"></mcsymbol>](https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_5_Grupo_TCC.js)
+    *   Implementação: https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_5_Grupo_TCC
 ```
