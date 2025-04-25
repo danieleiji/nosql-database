@@ -93,7 +93,7 @@ O banco de dados `feidb` utiliza as seguintes coleções para armazenar os dados
 
 Embora o MongoDB crie as coleções automaticamente na primeira inserção, você pode criá-las explicitamente no `mongosh` se desejar. Conecte-se ao banco (`mongosh "mongodb://localhost:27017/feidb"`) e execute:
 
-```javascript
+```
 db.createCollection("departamentos")
 db.createCollection("cursos")
 db.createCollection("disciplinas")
