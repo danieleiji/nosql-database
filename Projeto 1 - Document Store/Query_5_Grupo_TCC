@@ -1,0 +1,43 @@
+const grupoTccId = 3; // <-- Defina o ID do grupo de TCC aqui
+
+db.grupos_tcc.aggregate([
+  { $match: { _id: grupoTccId } },
+  {
+    $lookup: {
+      from: "professores",
+      localField: "orientador_id",
+      foreignField: "_id",
+      as: "orientador_info"
+    }
+  },
+  {
+    $lookup: {
+      from: "alunos",
+      localField: "alunos_ids",
+      foreignField: "_id",
+      as: "alunos_info"
+    }
+  },
+  { $unwind: "$orientador_info" },
+  {
+    $project: {
+      _id: 0,
+      grupo_id: "$_id",
+      semestre_tcc: "$semestre",
+      orientador: {
+        id: "$orientador_info._id",
+        nome: "$orientador_info.nome"
+      },
+      alunos: {
+        $map: {
+          input: "$alunos_info",
+          as: "aluno",
+          in: {
+            id: "$$aluno._id",
+            nome: "$$aluno.nome"
+          }
+        }
+      }
+    }
+  }
+]).pretty();

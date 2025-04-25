@@ -1,0 +1,21 @@
+db.professores.aggregate([
+  { $match: { eh_chefe: true } },
+  {
+    $lookup: {
+      from: "departamentos",
+      localField: "departamento_id",
+      foreignField: "_id",
+      as: "info_departamento"
+    }
+  },
+  { $unwind: "$info_departamento" },
+  {
+    $project: {
+      _id: 0,
+      id_professor: "$_id",
+      nome_professor: "$nome",
+      id_departamento: "$info_departamento._id",
+      nome_departamento: "$info_departamento.nome"
+    }
+  }
+]).pretty();

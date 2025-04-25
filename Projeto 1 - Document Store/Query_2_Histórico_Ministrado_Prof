@@ -1,0 +1,21 @@
+const profIdParaHistorico = 5; // <-- Defina o ID do professor aqui
+
+db.professores.aggregate([
+  { $match: { _id: profIdParaHistorico } },
+  {
+    $project: {
+      _id: 0,
+      nome_professor: "$nome",
+      disciplinas_ministradas_info: {
+        $map: {
+          input: "$disciplinas_ministradas",
+          as: "disciplina",
+          in: {
+            semestre: "$$disciplina.semestre",
+            ano: "$$disciplina.ano"
+          }
+        }
+      }
+    }
+  }
+]).pretty();

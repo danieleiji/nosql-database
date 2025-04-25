@@ -1,0 +1,24 @@
+const alunoIdParaHistorico = 12; // <-- Defina o ID do aluno aqui
+
+db.alunos.aggregate([
+  { $match: { _id: alunoIdParaHistorico } },
+  {
+    $project: {
+      _id: 0,
+      nome_aluno: "$nome",
+      historico_formatado: {
+        $map: {
+          input: "$historico",
+          as: "item",
+          in: {
+            codigo_disciplina: "$$item.codigo",
+            nome_disciplina: "$$item.nome",
+            semestre_cursado: "$$item.semestre",
+            ano_cursado: "$$item.ano",
+            nota: "$$item.nota_final"
+          }
+        }
+      }
+    }
+  }
+]).pretty();

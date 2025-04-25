@@ -1,0 +1,84 @@
+[
+    {
+        "_id": 1,
+        "orientador_id": 5,
+        "alunos_ids": [
+            89,
+            46
+        ],
+        "semestre": "2025.2"
+    },
+    {
+        "_id": 2,
+        "orientador_id": 2,
+        "alunos_ids": [
+            34,
+            42
+        ],
+        "semestre": "2025.1"
+    },
+    {
+        "_id": 3,
+        "orientador_id": 7,
+        "alunos_ids": [
+            92,
+            39,
+            44
+        ],
+        "semestre": "2025.2"
+    },
+    {
+        "_id": 4,
+        "orientador_id": 15,
+        "alunos_ids": [
+            20,
+            63,
+            15,
+            95
+        ],
+        "semestre": "2025.1"
+    },
+    {
+        "_id": 5,
+        "orientador_id": 12,
+        "alunos_ids": [
+            5,
+            78,
+            80,
+            14
+        ],
+        "semestre": "2024.2"
+    },
+    {
+        "_id": 6,
+        "orientador_id": 10,
+        "alunos_ids": [
+            60,
+            4,
+            38
+        ],
+        "semestre": "2025.1"
+    },
+    {
+        "_id": 7,
+        "orientador_id": 4,
+        "alunos_ids": [
+            65,
+            33,
+            97,
+            9
+        ],
+        "semestre": "2024.1"
+    },
+    {
+        "_id": 8,
+        "orientador_id": 8,
+        "alunos_ids": [
+            32,
+            72,
+            79,
+            51
+        ],
+        "semestre": "2025.1"
+    }
+]

@@ -1,0 +1,102 @@
+[
+    {
+        "_id": 1,
+        "codigo": "QUI285",
+        "nome": "Banco de Dados"
+    },
+    {
+        "_id": 2,
+        "codigo": "MAT210",
+        "nome": "História"
+    },
+    {
+        "_id": 3,
+        "codigo": "MAT385",
+        "nome": "Redes II"
+    },
+    {
+        "_id": 4,
+        "codigo": "BIO614",
+        "nome": "Engenharia de Software Experimental"
+    },
+    {
+        "_id": 5,
+        "codigo": "MAT527",
+        "nome": "História"
+    },
+    {
+        "_id": 6,
+        "codigo": "MAT136",
+        "nome": "Eletromagnetismo Computacional"
+    },
+    {
+        "_id": 7,
+        "codigo": "MAT407",
+        "nome": "Sistemas Operacionais Experimental"
+    },
+    {
+        "_id": 8,
+        "codigo": "QUI122",
+        "nome": "Cálculo"
+    },
+    {
+        "_id": 9,
+        "codigo": "MAT411",
+        "nome": "Física Experimental"
+    },
+    {
+        "_id": 10,
+        "codigo": "MAT489",
+        "nome": "Algoritmos"
+    },
+    {
+        "_id": 11,
+        "codigo": "BIO337",
+        "nome": "Cálculo Avançada"
+    },
+    {
+        "_id": 12,
+        "codigo": "QUI382",
+        "nome": "Engenharia de Software Aplicada"
+    },
+    {
+        "_id": 13,
+        "codigo": "MAT401",
+        "nome": "Mecânica Avançada"
+    },
+    {
+        "_id": 14,
+        "codigo": "QUI449",
+        "nome": "Mecânica Experimental"
+    },
+    {
+        "_id": 15,
+        "codigo": "MAT428",
+        "nome": "História"
+    },
+    {
+        "_id": 16,
+        "codigo": "BIO405",
+        "nome": "Química I"
+    },
+    {
+        "_id": 17,
+        "codigo": "INF461",
+        "nome": "Banco de Dados Aplicada"
+    },
+    {
+        "_id": 18,
+        "codigo": "BIO490",
+        "nome": "Inteligência Artificial Básica"
+    },
+    {
+        "_id": 19,
+        "codigo": "MAT318",
+        "nome": "Mecânica"
+    },
+    {
+        "_id": 20,
+        "codigo": "MAT541",
+        "nome": "Sistemas Operacionais Aplicada"
+    }
+]

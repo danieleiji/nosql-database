@@ -1,0 +1,412 @@
+[
+    {
+        "_id": 1,
+        "nome": "Isaac Sampaio",
+        "departamento_id": 3,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 2,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 7,
+                "semestre": "2025.2",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 8,
+                "semestre": "2022.1",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 19,
+                "semestre": "2025.2",
+                "ano": 2025
+            }
+        ]
+    },
+    {
+        "_id": 2,
+        "nome": "Anthony Gabriel Pacheco",
+        "departamento_id": 4,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 9,
+                "semestre": "2024.1",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 9,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 4,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 4,
+                "semestre": "2023.2",
+                "ano": 2023
+            }
+        ]
+    },
+    {
+        "_id": 3,
+        "nome": "João Pedro Vargas",
+        "departamento_id": 2,
+        "eh_chefe": true,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 6,
+                "semestre": "2023.1",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 15,
+                "semestre": "2021.2",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 9,
+                "semestre": "2023.2",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 7,
+                "semestre": "2024.1",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 17,
+                "semestre": "2022.1",
+                "ano": 2022
+            }
+        ]
+    },
+    {
+        "_id": 4,
+        "nome": "Otto Câmara",
+        "departamento_id": 2,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 11,
+                "semestre": "2024.2",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 17,
+                "semestre": "2024.2",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 10,
+                "semestre": "2021.1",
+                "ano": 2021
+            }
+        ]
+    },
+    {
+        "_id": 5,
+        "nome": "Pedro Pastor",
+        "departamento_id": 3,
+        "eh_chefe": true,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 11,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 14,
+                "semestre": "2024.2",
+                "ano": 2024
+            }
+        ]
+    },
+    {
+        "_id": 6,
+        "nome": "Raquel Lopes",
+        "departamento_id": 3,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 8,
+                "semestre": "2024.2",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 16,
+                "semestre": "2023.2",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 9,
+                "semestre": "2024.1",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 15,
+                "semestre": "2025.2",
+                "ano": 2025
+            }
+        ]
+    },
+    {
+        "_id": 7,
+        "nome": "Liam Martins",
+        "departamento_id": 5,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 16,
+                "semestre": "2024.1",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 12,
+                "semestre": "2025.2",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 19,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 20,
+                "semestre": "2023.2",
+                "ano": 2023
+            }
+        ]
+    },
+    {
+        "_id": 8,
+        "nome": "Sophia das Neves",
+        "departamento_id": 1,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 20,
+                "semestre": "2022.1",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 15,
+                "semestre": "2024.2",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 2,
+                "semestre": "2025.1",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 7,
+                "semestre": "2023.1",
+                "ano": 2023
+            }
+        ]
+    },
+    {
+        "_id": 9,
+        "nome": "Helena Aparecida",
+        "departamento_id": 1,
+        "eh_chefe": true,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 1,
+                "semestre": "2021.1",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 16,
+                "semestre": "2024.2",
+                "ano": 2024
+            }
+        ]
+    },
+    {
+        "_id": 10,
+        "nome": "Danilo Viana",
+        "departamento_id": 5,
+        "eh_chefe": true,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 11,
+                "semestre": "2025.1",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 19,
+                "semestre": "2024.1",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 3,
+                "semestre": "2024.1",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 14,
+                "semestre": "2024.2",
+                "ano": 2024
+            }
+        ]
+    },
+    {
+        "_id": 11,
+        "nome": "Srta. Ana Lívia Vieira",
+        "departamento_id": 4,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 1,
+                "semestre": "2025.2",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 16,
+                "semestre": "2021.2",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 6,
+                "semestre": "2021.2",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 6,
+                "semestre": "2023.1",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 13,
+                "semestre": "2024.1",
+                "ano": 2024
+            }
+        ]
+    },
+    {
+        "_id": 12,
+        "nome": "Ana Júlia Pastor",
+        "departamento_id": 5,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 17,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 15,
+                "semestre": "2022.1",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 6,
+                "semestre": "2021.2",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 5,
+                "semestre": "2024.2",
+                "ano": 2024
+            }
+        ]
+    },
+    {
+        "_id": 13,
+        "nome": "Davi Miguel Pacheco",
+        "departamento_id": 1,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 1,
+                "semestre": "2025.2",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 18,
+                "semestre": "2021.2",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 2,
+                "semestre": "2025.2",
+                "ano": 2025
+            },
+            {
+                "disciplina_id": 12,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 1,
+                "semestre": "2021.1",
+                "ano": 2021
+            }
+        ]
+    },
+    {
+        "_id": 14,
+        "nome": "Dr. José Miguel Garcia",
+        "departamento_id": 5,
+        "eh_chefe": false,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 11,
+                "semestre": "2023.1",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 14,
+                "semestre": "2022.2",
+                "ano": 2022
+            },
+            {
+                "disciplina_id": 6,
+                "semestre": "2023.2",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 17,
+                "semestre": "2023.1",
+                "ano": 2023
+            },
+            {
+                "disciplina_id": 1,
+                "semestre": "2025.2",
+                "ano": 2025
+            }
+        ]
+    },
+    {
+        "_id": 15,
+        "nome": "Augusto da Mata",
+        "departamento_id": 4,
+        "eh_chefe": true,
+        "disciplinas_ministradas": [
+            {
+                "disciplina_id": 2,
+                "semestre": "2021.2",
+                "ano": 2021
+            },
+            {
+                "disciplina_id": 8,
+                "semestre": "2024.2",
+                "ano": 2024
+            },
+            {
+                "disciplina_id": 11,
+                "semestre": "2023.1",
+                "ano": 2023
+            }
+        ]
+    }
+]
