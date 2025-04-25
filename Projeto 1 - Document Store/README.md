@@ -1,6 +1,6 @@
 
-```markdown
-# Projeto 1 - Document Store (Banco de Dados NoSQL)
+
+### Projeto 1 - Document Store (Banco de Dados NoSQL)
 
 Este projeto demonstra a modelagem e consulta de dados acadêmicos utilizando MongoDB como um banco de dados orientado a documentos. Ele inclui scripts para gerar dados fictícios, inseri-los no banco e realizar consultas específicas.
 
@@ -19,7 +19,7 @@ Você pode instalar as dependências Python usando pip:
 
 ```bash
 pip install pymongo faker
-```
+
 
 ### MongoDB
 
