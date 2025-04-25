@@ -44,15 +44,6 @@ O objetivo é demonstrar a modelagem e manipulação de dados em um ambiente NoS
     ```bash
     pip install pymongo Faker
     ```
-    *   (Opcional) Você pode criar um arquivo `requirements.txt` com o seguinte conteúdo:
-        ```txt
-        pymongo>=4.0
-        Faker>=10.0
-        ```
-        E então instalar com:
-        ```bash
-        pip install -r requirements.txt
-        ```
 
 3.  **Verifique o MongoDB:** Certifique-se de que o serviço MongoDB esteja em execução na sua máquina ou em um local acessível pela URI `mongodb://localhost:27017/`.
 
