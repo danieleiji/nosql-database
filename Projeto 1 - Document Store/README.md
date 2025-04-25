@@ -28,8 +28,8 @@ O objetivo é demonstrar a modelagem e manipulação de dados em um ambiente NoS
 
 1.  **Clone o Repositório:**
     ```bash
-    git clone [URL do seu repositório]
-    cd [nome-do-diretorio-do-projeto]
+    git clone [(https://github.com/danieleiji/nosql-database/tree/main/Projeto%201%20-%20Document%20Store)]
+    cd [Github\nosql-database\Projeto 1 - Document Store]
     ```
 
 2.  **Instale as Dependências Python:**
