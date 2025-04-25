@@ -132,7 +132,7 @@ As seguintes consultas estão disponíveis:
 2.  **Histórico de Disciplinas Ministradas por um Professor:** Dado o ID de um professor, retorna seu nome e as disciplinas que ele ministrou (código, nome, semestre).
     *   Implementação:https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_2_Hist%C3%B3rico_Ministrado_Prof
 
-3.  **Listar Alunos Graduados:** Forneça um semestre/ano (formato "AAAA.S") para listar os alunos (ID e nome). A consulta busca na coleção `alunos` por aqueles que atendem a duas condições: `graduado` é `true` e `semestre_graduacao` corresponde ao período informado.
+3.  **Listar Alunos Graduados:** Forneça um semestre/ano (formato "AAAA.S") para listar os alunos (ID e nome). *Nota* A consulta busca na coleção `alunos` por aqueles que atendem a duas condições: `graduado` é `true` e `semestre_graduacao` corresponde ao período informado.
     *   Implementação: https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_3_Lista_aluno
 
 4.  **Listar Professores Chefes de Departamento:** Lista todos os professores que são chefes de departamento, juntamente com o nome e código do departamento que chefiam.
