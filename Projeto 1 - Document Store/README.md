@@ -1,170 +1,141 @@
 
 ```markdown
-# Projeto 1 - Document Store (Modelo Acadêmico)
+# Projeto 1 - Document Store (Banco de Dados NoSQL)
 
-Este projeto simula um ambiente acadêmico simplificado utilizando um banco de dados NoSQL (MongoDB) como Document Store. Ele demonstra a modelagem e manipulação de dados, focando nas relações e consultas comuns em um sistema acadêmico.
-
-O projeto é composto por três scripts Python principais:
-
-*   `Gerador.py`: Responsável por gerar dados fictícios (alunos, professores, cursos, disciplinas, departamentos, grupos de TCC) utilizando a biblioteca Faker. Os dados gerados são salvos em arquivos JSON na pasta `data/`.
-*   `insert.py`: Lê os arquivos JSON da pasta `data/` e insere os dados correspondentes nas coleções no banco de dados MongoDB `feidb`.
-*   `query.py`: Fornece uma interface de linha de comando interativa para executar consultas pré-definidas sobre os dados no MongoDB.
+Este projeto demonstra a modelagem e consulta de dados acadêmicos utilizando MongoDB como um banco de dados orientado a documentos. Ele inclui scripts para gerar dados fictícios, inseri-los no banco e realizar consultas específicas.
 
 ## Integrante
 
-*   Daniel Eiji Osato Yoshida - (RA: 22.121.131-1)
+*   Daniel Eiji Osato Yoshida - RA: 22.121.131-1
 
-## Tecnologias e Pré-requisitos
+## Dependências
 
-Para rodar este projeto, você precisará ter instalado:
+### Python
 
-*   **Python**: Versão 3.8 ou superior é recomendada.
-*   **Pip**: Gerenciador de pacotes do Python.
-*   **MongoDB**: Uma instância do MongoDB (versão 4.x ou superior) deve estar instalada e em execução.
-*   **MongoDB Shell (`mongosh`)**: Ferramenta de linha de comando para interagir com o MongoDB.
-*   **Bibliotecas Python**: Instale-as via pip:
-    *   `pymongo`: Para a comunicação com o MongoDB.
-    *   `Faker`: Para a geração de dados fictícios.
+*   **pymongo:** Driver oficial do MongoDB para Python.
+*   **Faker:** Biblioteca para gerar dados fictícios.
 
-## Instalação do MongoDB (Guia Rápido)
+Você pode instalar as dependências Python usando pip:
 
-Se você ainda não possui o MongoDB instalado, siga este guia rápido:
-
-1.  **Baixe e Instale**: Siga as instruções oficiais para seu sistema operacional em: [MongoDB Installation Tutorials](https://www.mongodb.com/docs/manual/installation/)
-2.  **Inicie o Serviço**: Certifique-se de que o serviço `mongod` esteja rodando após a instalação. Os comandos variam por sistema (consulte a documentação).
-3.  **Acesse o Shell**: Abra um terminal e digite `mongosh`.
-4.  **Banco de Dados `feidb`**: Este banco de dados será criado automaticamente pelo MongoDB na primeira vez que o script `insert.py` tentar inserir dados nele.
-
-## Descrição das Coleções do Banco de Dados `feidb`
-
-O banco de dados `feidb` organiza os dados nas seguintes coleções:
-
-### `departamentos`
-
-*   **Propósito**: Armazena informações sobre os departamentos acadêmicos.
-*   **Estrutura**: `{ _id: Int, nome: String, codigo_dept: String, chefe_id: Int | Null }`
-
-### `cursos`
-
-*   **Propósito**: Armazena informações sobre os cursos de graduação.
-*   **Estrutura**: `{ _id: Int, nome: String, departamento_id: Int | Null, disciplinas_ids: [Int] }`
-
-### `disciplinas`
-
-*   **Propósito**: Armazena informações sobre as disciplinas oferecidas.
-*   **Estrutura**: `{ _id: Int, codigo: String, nome: String }`
-
-### `professores`
-
-*   **Propósito**: Armazena informações sobre os professores.
-*   **Estrutura**: `{ _id: Int, nome: String, departamento_id: Int | Null, eh_chefe: Boolean, disciplinas_ministradas: [{ disciplina_id: Int, semestre: String, ano: Int }] }`
-
-### `alunos`
-
-*   **Propósito**: Armazena informações sobre os alunos.
-*   **Estrutura**: `{ _id: Int, nome: String, curso_id: Int | Null, historico: [{ codigo: String, nome: String, semestre: String, ano: Int, nota_final: Double, status: String }], graduado: Boolean, semestre_graduacao: String | Null }`
-
-### `grupos_tcc`
-
-*   **Propósito**: Armazena informações sobre os grupos de Trabalho de Conclusão de Curso.
-*   **Estrutura**: `{ _id: Int, orientador_id: Int | Null, alunos_ids: [Int], semestre: String }`
-
-*Consulte o código `Gerador.py` ou inspecione os documentos no MongoDB para detalhes completos dos campos.*
-
-## Instalação do Projeto (Python)
-
-Siga estes passos para configurar o ambiente Python do projeto:
-
-1.  **Clone o Repositório**:
-    ```bash
-    # Substitua [URL_DO_SEU_REPOSITORIO] pela URL correta (ex: https://github.com/danieleiji/nosql-database.git)
-    git clone [URL_DO_SEU_REPOSITORIO]
-    # Navegue para a pasta do projeto (ajuste conforme sua estrutura)
-    # Exemplo:
-    cd nosql-database/Projeto\ 1\ -\ Document\ Store\ -\
-    ```
-
-2.  **Crie e Ative um Ambiente Virtual** (Recomendado):
-    ```bash
-    python -m venv venv
-
-    # Para ativar no Linux/macOS:
-    source venv/bin/activate
-
-    # Para ativar no Windows (cmd/powershell):
-    .\venv\Scripts\activate
-    ```
-
-3.  **Instale as Dependências Python**:
-    ```bash
-    pip install pymongo Faker
-    ```
-    *(Opcional) Se houver um `requirements.txt`: `pip install -r requirements.txt`*
-
-## Criação Explícita das Coleções (Opcional)
-
-Embora o MongoDB crie as coleções na primeira inserção, você pode criá-las explicitamente usando o `mongosh`. Conecte-se ao banco (`mongosh "mongodb://localhost:27017/feidb"`) e execute os comandos:
-
-```javascript
-db.createCollection("departamentos")
-db.createCollection("cursos")
-db.createCollection("disciplinas")
-db.createCollection("professores")
-db.createCollection("alunos")
-db.createCollection("grupos_tcc")
-
-show collections // Verifique se foram criadas
+```bash
+pip install pymongo faker
 ```
 
-## Como Usar e Validar o Projeto
+### MongoDB
 
-Siga a ordem abaixo, garantindo que o servidor MongoDB esteja rodando:
+*   É necessário ter uma instância do MongoDB em execução (localmente ou em um servidor). A URI de conexão padrão nos scripts é `mongodb://localhost:27017/`.
+*   Os scripts `insert.py` e `query.py` esperam que exista um banco de dados chamado `feidb`. O script `insert.py` criará as coleções dentro deste banco de dados se elas não existirem. Você pode criar o banco de dados manualmente no `mongosh` com o comando `use feidb` antes de executar os scripts, ou deixar que a primeira inserção o crie.
 
-1.  **Gerar Dados (`Gerador.py`)**:
-    Este passo criará os arquivos JSON na pasta `data/`.
+## Instruções Passo a Passo
+
+1.  **Gerar Dados Fictícios:**
+    Execute o script <mcfile name="Gerador.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\Gerador.py"></mcfile> para criar os arquivos JSON com dados simulados de alunos, professores, cursos, etc.
     ```bash
     python Gerador.py
     ```
+    Isso criará/sobrescreverá os seguintes arquivos JSON no diretório:
+    *   `alunos.json`
+    *   `professores.json`
+    *   `cursos.json`
+    *   `departamentos.json`
+    *   `disciplinas.json`
+    *   `grupos_tcc.json`
 
-2.  **Inserir Dados no MongoDB (`insert.py`)**:
-    Este passo lerá os JSONs e populará o banco de dados `feidb`.
+2.  **Inserir Dados no MongoDB:**
+    Execute o script <mcfile name="insert.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\insert.py"></mcfile> para ler os arquivos JSON gerados e inseri-los nas coleções correspondentes no banco de dados `feidb`.
+    *   **Atenção:** Por padrão, o script `insert.py` (com `LIMPAR_COLECOES_ANTES = True`) limpará as coleções antes de inserir novos dados.
     ```bash
     python insert.py
     ```
-    **Observação**: O script `insert.py` possui a flag `LIMPAR_COLECOES_ANTES = True` (padrão), que **apagará** todos os dados existentes nas coleções antes de inserir os novos.
 
-3.  **Realizar e Validar Consultas**:
+3.  **Executar Consultas (Queries):**
+    Existem duas maneiras principais de executar as consultas predefinidas:
 
-    *   **Usando o Script Interativo (`query.py`)**:
-        Execute o script principal de consultas.
+    *   **Usando `mongosh` e Arquivos `.js`:**
+        Você pode carregar e executar os arquivos de consulta individuais (prefixados com `Query_`) diretamente no `mongosh`. Conecte-se ao seu MongoDB, use o banco `feidb` e então carregue o arquivo desejado.
+        Exemplo para a Query 1:
+        ```bash
+        mongosh
+        use feidb
+        load("Query_1_Historico_aluno")
+        ```
+        *Nota: Pode ser necessário ajustar o ID dentro de cada arquivo `.js` antes de carregá-lo para consultar diferentes entidades.*
+
+    *   **Usando o Script Python Interativo:**
+        Execute o script <mcfile name="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py"></mcfile> para um menu interativo que permite escolher e executar as consultas. O script solicitará os IDs necessários.
         ```bash
         python query.py
         ```
-        Siga as opções do menu interativo (consultas 1 a 5) para executar as operações pré-definidas.
 
-    *   **Usando o MongoDB Shell (`mongosh`)**:
-        Para validação direta ou consultas manuais. Conecte-se ao banco:
-        ```bash
-        mongosh "mongodb://localhost:27017/feidb"
-        ```
-        Você pode verificar a contagem de documentos, inspecionar dados ou executar consultas de validação. Exemplos:
+## Descrição das Coleções do Banco de Dados `feidb`
 
-        ```javascript
-        // Verificar coleções
-        show collections
+O banco de dados `feidb` contém as seguintes coleções:
 
-        // Contar documentos (exemplo com alunos)
-        db.alunos.countDocuments()
+1.  **`departamentos`**: Armazena informações sobre os departamentos acadêmicos.
+    *   `_id`: Identificador único do departamento.
+    *   `nome`: Nome do departamento.
+    *   `codigo_dept`: Código único do departamento (ex: "INF", "MAT").
+    *   `chefe_id`: Referência (`_id`) ao professor que chefia o departamento (da coleção `professores`).
 
-        // Ver os primeiros 5 documentos de professores
-        db.professores.find().limit(5).pretty()
+2.  **`cursos`**: Armazena informações sobre os cursos de graduação.
+    *   `_id`: Identificador único do curso.
+    *   `nome`: Nome do curso (ex: "Graduação em Engenharia de Software").
+    *   `departamento_id`: Referência (`_id`) ao departamento que oferece o curso (da coleção `departamentos`).
+    *   `disciplinas_ids`: Lista de referências (`_id`) às disciplinas que compõem o curso (da coleção `disciplinas`).
 
-        // Exemplo de validação da Query 3 (Alunos Graduados em um semestre)
-        const semestre = "2023.1"; // Ajuste para um semestre gerado
-        db.alunos.find(
-            { graduado: true, semestre_graduacao: semestre },
-            { _id: 1, nome: 1 }
-        ).pretty()
-        ```
-        Compare os resultados obtidos no `mongosh` com os do script `query.py` para validar a lógica.
+3.  **`disciplinas`**: Armazena informações sobre as disciplinas.
+    *   `_id`: Identificador único da disciplina.
+    *   `codigo`: Código único da disciplina (ex: "INF101").
+    *   `nome`: Nome da disciplina (ex: "Algoritmos e Estruturas de Dados").
+
+4.  **`professores`**: Armazena informações sobre os professores.
+    *   `_id`: Identificador único do professor.
+    *   `nome`: Nome do professor.
+    *   `departamento_id`: Referência (`_id`) ao departamento ao qual o professor pertence (da coleção `departamentos`).
+    *   `eh_chefe`: Booleano indicando se o professor é chefe do seu departamento.
+    *   `disciplinas_ministradas`: Lista de documentos embutidos, cada um representando uma oferta de disciplina:
+        *   `disciplina_id`: Referência (`_id`) à disciplina ministrada (da coleção `disciplinas`).
+        *   `semestre`: Semestre em que a disciplina foi ministrada (formato "AAAA.S").
+        *   `ano`: Ano em que a disciplina foi ministrada.
+
+5.  **`alunos`**: Armazena informações sobre os alunos.
+    *   `_id`: Identificador único do aluno.
+    *   `nome`: Nome do aluno.
+    *   `curso_id`: Referência (`_id`) ao curso em que o aluno está matriculado (da coleção `cursos`).
+    *   `historico`: Lista de documentos embutidos, representando o histórico acadêmico do aluno:
+        *   `codigo`: Código da disciplina cursada.
+        *   `nome`: Nome da disciplina cursada.
+        *   `semestre`: Semestre em que a disciplina foi cursada.
+        *   `ano`: Ano em que a disciplina foi cursada.
+        *   `nota_final`: Nota obtida pelo aluno.
+        *   `status`: Situação do aluno na disciplina ("Aprovado", "Reprovado").
+    *   `graduado`: Booleano indicando se o aluno já se graduou.
+    *   `semestre_graduacao`: Semestre em que o aluno se graduou (formato "AAAA.S"), se aplicável.
+
+6.  **`grupos_tcc`**: Armazena informações sobre os grupos de Trabalho de Conclusão de Curso (TCC).
+    *   `_id`: Identificador único do grupo de TCC.
+    *   `orientador_id`: Referência (`_id`) ao professor orientador (da coleção `professores`).
+    *   `alunos_ids`: Lista de referências (`_id`) aos alunos que compõem o grupo (da coleção `alunos`).
+    *   `semestre`: Semestre de realização do TCC (formato "AAAA.S").
+
+## Queries Implementadas
+
+As seguintes consultas estão disponíveis:
+
+1.  **Histórico Escolar de um Aluno:** Dado o ID de um aluno, retorna seu nome e o histórico de disciplinas cursadas (código, nome, semestre, nota, status).
+    *   Implementação: <mcfile name="Query_1_Historico_aluno" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_1_Historico_aluno"></mcfile>, <mcsymbol name="query_historico_aluno" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="12" type="function"></mcsymbol>
+
+2.  **Histórico de Disciplinas Ministradas por um Professor:** Dado o ID de um professor, retorna seu nome e as disciplinas que ele ministrou (código, nome, semestre).
+    *   Implementação: <mcfile name="Query_2_Histórico_Ministrado_Prof" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_2_Histórico_Ministrado_Prof"></mcfile>, <mcsymbol name="query_historico_professor" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="70" type="function"></mcsymbol>
+
+3.  **Listar Alunos Graduados:** Dado um semestre/ano (formato "AAAA.S"), lista os alunos (ID e nome) que se graduaram nesse período.
+    *   Implementação: <mcfile name="Query_3_Lista_aluno" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_3_Lista_aluno"></mcfile>, <mcsymbol name="query_alunos_graduados" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="151" type="function"></mcsymbol>
+
+4.  **Listar Professores Chefes de Departamento:** Lista todos os professores que são chefes de departamento, juntamente com o nome e código do departamento que chefiam.
+    *   Implementação: <mcfile name="Query_4_Professor_chefe_departamento" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_4_Professor_chefe_departamento"></mcfile>, <mcsymbol name="query_chefes_departamento" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="187" type="function"></mcsymbol>
+
+5.  **Detalhes de um Grupo de TCC:** Dado o ID de um grupo de TCC, retorna o semestre, o nome do orientador e a lista de nomes dos alunos participantes.
+    *   Implementação: <mcfile name="Query_5_Grupo_TCC" path="f:\Github\nosql-database\Projeto 1 - Document Store\Query_5_Grupo_TCC"></mcfile>, <mcsymbol name="query_grupo_tcc" filename="query.py" path="f:\Github\nosql-database\Projeto 1 - Document Store\query.py" startline="231" type="function"></mcsymbol>
 ```
+
+        
