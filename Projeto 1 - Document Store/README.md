@@ -12,7 +12,7 @@ O objetivo é demonstrar a modelagem e manipulação de dados em um ambiente NoS
 
 ## Integrante
 
-*   **[Coloque Seu Nome Aqui]** - ([Link para Seu GitHub/Contato Aqui - Opcional])
+*   **[Daniel Eiji Osato Yoshida]** - ([Ra: 22.121.131-1])
 
 ## Tecnologias e Pré-requisitos
 
