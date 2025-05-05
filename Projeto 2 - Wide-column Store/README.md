@@ -118,8 +118,8 @@ Após popular o banco de dados, você pode executar consultas diretamente no Cas
 3.  **Execute as Consultas:** Agora você pode executar as consultas CQL. Abaixo estão exemplos baseados nas funcionalidades solicitadas (lembre-se de substituir os IDs de exemplo pelos IDs reais gerados ou que você deseja consultar):
 
     *   **1. Histórico escolar de um aluno:** Retorna o mapa de disciplinas concluídas, com semestre, ano e nota.
-        ```cql
         -- Substitua 1 pelo ID do aluno desejado
+        ```cql
         SELECT disciplinas_concluidas FROM alunos WHERE id_aluno = 1;
         ```
 
@@ -141,29 +141,30 @@ Após popular o banco de dados, você pode executar consultas diretamente no Cas
             SELECT id_chefe_departamento, nome FROM departamento;
             ```
         *   **Etapa B:** Para cada `id_chefe_departamento` retornado na Etapa A, busque o nome do professor correspondente. (Você pode fazer isso individualmente ou buscar todos os professores e filtrar na sua aplicação).
-            ```cql
             -- Exemplo: Se a Etapa A retornou um chefe com ID 5
+            ```cql
             SELECT nome FROM professor WHERE id_professor = 5;
             -- Ou para buscar vários chefes (ex: IDs 1, 5, 8)
-            -- SELECT id_professor, nome FROM professor WHERE id_professor IN (1, 5, 8);
+            SELECT id_professor, nome FROM professor WHERE id_professor IN (1, 5, 8);
             ```
 
     *   **5. Membros e orientador de um grupo de TCC:** Similar à consulta 4, requer múltiplas etapas para obter todos os nomes.
         *   **Etapa A:** Obtenha o ID do professor orientador e a lista de IDs dos membros do grupo.
-            ```cql
             -- Substitua 2 pelo ID do grupo desejado
+            ```cql
             SELECT id_professor, membros FROM grupo_proj WHERE id_grupo = 2;
             ```
         *   **Etapa B:** Busque o nome do professor orientador usando o `id_professor` da Etapa A.
-            ```cql
             -- Exemplo: Se id_professor for 4
+            ```cql
             SELECT nome FROM professor WHERE id_professor = 4;
             ```
         *   **Etapa C:** Busque os nomes dos alunos membros usando a lista `membros` da Etapa A.
-            ```cql
             -- Exemplo: Se membros for [10, 15, 22]
+            ```cql
             SELECT id_aluno, nome FROM alunos WHERE id_aluno IN (10, 15, 22);
             ```
+            
 
 4.  **Sair do `cqlsh`:** Quando terminar, digite `exit;` e pressione Enter.
 
