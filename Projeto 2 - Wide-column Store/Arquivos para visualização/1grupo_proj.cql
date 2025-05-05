@@ -1,0 +1,15 @@
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (1, 13, [55, 45, 6]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (2, 13, [47, 28, 30, 32]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (3, 3, [30, 29, 14, 12]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (4, 3, [37, 38, 6, 21]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (5, 15, [25, 18]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (6, 9, [18, 65, 30, 12]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (7, 3, [31, 25, 13]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (8, 12, [38, 37]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (9, 18, [53, 67, 37, 52, 7]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (10, 16, [49, 30, 50]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (11, 12, [49, 1, 27]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (12, 10, [49, 6, 24, 62]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (13, 17, [61, 33, 15]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (14, 3, [29, 67, 25, 36]);
+INSERT INTO grupo_proj (id_grupo, id_professor, membros) VALUES (15, 4, [16, 72, 10, 3]);

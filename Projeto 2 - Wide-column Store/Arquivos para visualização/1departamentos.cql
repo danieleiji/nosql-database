@@ -1,0 +1,10 @@
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (1, 'da Rocha S.A.', 5, { 'Banco de Dados' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (2, 'Lima', 3, { 'Compilador' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (3, 'Lopes', 1, { 'Compilador', 'Complexidade de Algoritmo' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (4, 'Aragão e Filhos', 11, { 'Software orientado a objetos', 'Compilador' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (5, 'Gonçalves', 15, { 'Sistemas Operacionais', 'CC6240', 'Compilador' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (6, 'Lima S.A.', 13, { 'Compilador', 'Sistemas Operacionais', 'Cálculo I' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (7, 'Oliveira Rezende S/A', 6, { 'Compilador', 'Software orientado a objetos', 'Complexidade de Algoritmo' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (8, 'Melo - ME', 18, { 'CC6240', 'Banco de Dados' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (9, 'Azevedo Duarte e Filhos', 14, { 'Complexidade de Algoritmo' });
+INSERT INTO departamento (id_departamento, nome, id_chefe_departamento, disciplinas) VALUES (10, 'Pinto Viana - ME', 10, { 'Álgebra Linear', 'Computação Grafica' });
