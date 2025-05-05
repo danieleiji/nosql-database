@@ -124,14 +124,14 @@ Após popular o banco de dados, você pode executar consultas diretamente no Cas
         ```
 
     *   **2. Histórico de disciplinas ministradas por um professor:** Retorna o mapa de disciplinas ministradas, com semestre e ano.
-        ```cql
         -- Substitua 3 pelo ID do professor desejado
+        ```cql
         SELECT disciplinas_ministradas FROM professor WHERE id_professor = 3;
         ```
 
     *   **3. Listar alunos formados em um semestre/ano:** Retorna o ID e nome dos alunos formados no período especificado.
-        ```cql
         -- Substitua 2023 e 2 pelo ano e semestre desejados
+        ```cql
         SELECT id_aluno, nome FROM alunos_formado WHERE ano = 2023 AND semestre = 2;
         ```
 
