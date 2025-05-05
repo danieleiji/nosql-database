@@ -39,12 +39,28 @@ Para executar este projeto, é necessário ter uma instância do Apache Cassandr
 
 ### 5. Conectando os Scripts Python
 
-*   Os scripts Python neste projeto (<mcfile name="Creationtable.py" path="c:\Users\danie\OneDrive\Área de Trabalho\a\Projeto 2 - Wide-column Store\Creationtable.py"></mcfile>, <mcfile name="inject.py" path="c:\Users\danie\OneDrive\Área de Trabalho\a\Projeto 2 - Wide-column Store\inject.py"></mcfile>, <mcfile name="querys.py" path="c:\Users\danie\OneDrive\Área de Trabalho\a\Projeto 2 - Wide-column Store\querys.py"></mcfile>) já estão configurados para se conectar ao Cassandra no endereço `127.0.0.1` na porta `9042`, que corresponde à configuração do container Docker que você acabou de criar.
+*   Os scripts Python neste projeto (`Creationtable.py`, `inject.py`, `querys.py`) já estão configurados para se conectar ao Cassandra no endereço `127.0.0.1` na porta `9042`, que corresponde à configuração padrão do container Docker.
 
-*   **Importante:** O keyspace `fei` precisa existir no Cassandra para que os scripts funcionem. O script <mcfile name="Creationtable.py" path="c:\Users\danie\OneDrive\Área de Trabalho\a\Projeto 2 - Wide-column Store\Creationtable.py"></mcfile> tentará se conectar a este keyspace e criar as tabelas dentro dele. Se o keyspace não existir, a conexão inicial pode falhar. Geralmente, você criaria o keyspace manualmente após iniciar o container usando `cqlsh` ou garantiria que seu script de criação o fizesse. No entanto, seguindo a estrutura atual do seu projeto, execute primeiro o <mcfile name="Creationtable.py" path="c:\Users\danie\OneDrive\Área de Trabalho\a\Projeto 2 - Wide-column Store\Creationtable.py"></mcfile> após iniciar o container. Se encontrar erros relacionados ao keyspace, você pode precisar criá-lo manualmente:
-    1.  Conecte-se ao `cqlsh` dentro do container: `docker exec -it my-cassandra cqlsh`
-    2.  Execute o comando CQL: `CREATE KEYSPACE fei WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};`
-    3.  Digite `exit;` para sair do `cqlsh`.
+*   **Importante:** O keyspace `fei` precisa existir no Cassandra para que os scripts funcionem. O script `Creationtable.py` tentará se conectar a este keyspace e criar as tabelas dentro dele. Se o keyspace não existir, a conexão inicial pode falhar.
+
+    Idealmente, o script `Creationtable.py` deve ser capaz de criar o keyspace se ele não existir (verifique o código do script para confirmar). No entanto, se você encontrar erros relacionados à ausência do keyspace após iniciar o container e antes de executar os scripts, pode ser necessário criá-lo manualmente:
+
+    1.  Abra um terminal e conecte-se ao `cqlsh` dentro do container Docker (substitua `my-cassandra` pelo nome real do seu container, se for diferente):
+        ```bash
+        docker exec -it my-cassandra cqlsh
+        ```
+    2.  Dentro do `cqlsh`, execute o comando CQL para criar o keyspace:
+        ```cql
+        CREATE KEYSPACE fei WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+        ```
+    3.  Verifique se o keyspace foi criado (opcional):
+        ```cql
+        DESCRIBE KEYSPACES;
+        ```
+        Você deve ver `fei` na lista.
+    4.  Digite `exit;` e pressione Enter para sair do `cqlsh`.
+
+    Após garantir que o keyspace `fei` existe, você pode executar os scripts Python conforme necessário.
 
 ### 6. Parando e Removendo o Container (Opcional)
 
