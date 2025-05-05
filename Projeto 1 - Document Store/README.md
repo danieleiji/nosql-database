@@ -53,15 +53,25 @@ Este projeto não inclui scripts `.js` separados especificamente para a criaçã
 3.  **Executar Consultas (Queries):**
     Existem duas maneiras principais de executar as consultas predefinidas no banco `feidb`:
 
-    *   **Método 1: Usando o Shell Embutido do MongoDB Compass**
-        Esta é uma forma direta de testar as consultas JavaScript.
-        1.  Abra o **MongoDB Compass** e conecte-se à sua instância MongoDB.
-        2.  No painel esquerdo, selecione ou crie o banco de dados `feidb`.
-        3.  Clique na aba `_MongoSH` para abrir o shell embutido.
-        4.  Abra o arquivo `.js` da consulta desejada (por exemplo, `Query_1_Historico_aluno.js`) em um editor de texto.
-        5.  **Importante:** Muitas consultas requerem um ID específico (como `aluno_id`). Verifique o código no arquivo `.js` e, se necessário, **edite o valor do ID diretamente no código** antes de copiar.
-        6.  **Copie todo o conteúdo** do arquivo `.js` editado.
-        7.  **Cole o código copiado** diretamente no prompt do `_MongoSH` dentro do Compass e pressione Enter para executar a consulta. Os resultados aparecerão na janela do shell.
+    *   **Método 1: Usando `mongosh` e Arquivos `.js` (ou Comandos Diretos)**
+        Você pode executar as consultas diretamente no MongoDB Shell (`mongosh`).
+        1.  **Abra o seu terminal** ou prompt de comando.
+        2.  **Inicie o `mongosh`**: Digite `mongosh` e pressione Enter. Isso tentará conectar ao servidor padrão (`mongodb://127.0.0.1:27017`).
+            ```bash
+            mongosh
+            ```
+        3.  **Acesse o banco de dados `feidb`**: Uma vez conectado, digite o seguinte comando:
+            ```javascript
+            use feidb
+            ```
+        4.  **Execute a consulta**: Agora você pode:
+            *   **Carregar um arquivo `.js`**: Use o comando `load("caminho/para/seu/arquivo/Query_X_Nome.js")`. Lembre-se de **editar o ID** dentro do arquivo `.js` antes, se necessário.
+                ```javascript
+                // Exemplo (ajuste o caminho e o ID no arquivo antes)
+                load("Query_1_Historico_aluno")
+                ```
+            *   **Copiar e colar o código**: Abra o arquivo `.js` em um editor, copie o conteúdo (após editar o ID, se aplicável) e cole diretamente no prompt do `mongosh`.
+            *   **Digitar comandos**: Você pode digitar comandos do MongoDB diretamente, como `db.alunos.find().pretty()`.
 
     *   **Método 2: Usando o Script Python Interativo (`query.py`) (Recomendado para Facilidade)**
         Para uma experiência mais **simples e guiada**, sem precisar editar arquivos `.js` manualmente, utilize o script Python. Ele apresenta um menu para selecionar a consulta e solicita os IDs necessários interativamente.
@@ -140,4 +150,3 @@ As seguintes consultas estão disponíveis:
     *   
 5.  **Detalhes de um Grupo de TCC:** Dado o ID de um grupo de TCC, retorna o semestre, o nome do orientador e a lista de nomes dos alunos participantes.
     *   Implementação: https://github.com/danieleiji/nosql-database/blob/main/Projeto%201%20-%20Document%20Store/Query_5_Grupo_TCC
-```
