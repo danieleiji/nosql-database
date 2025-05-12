@@ -140,15 +140,15 @@ O arquivo `queries.cypher` contém exemplos de consultas para explorar os dados.
 
 *   **Histórico escolar de um aluno:**
     ```cypher
-    // Substitua 123 pelo ID de um aluno
-    MATCH (a:Aluno {id_aluno: 123})-[r:CURSOU]->(d:Disciplina)
+    // Substitua 33 pelo ID de um aluno
+    MATCH (a:Aluno {id_aluno: 33})-[r:CURSOU]->(d:Disciplina)
     RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
     ```
 *   **Disciplinas ministradas por um professor:**
     ```cypher
-    // Substitua 45 pelo ID de um professor
-    MATCH (p:Professor {id_professor: 45})-[r:MINISTROU]->(d:Disciplina)
-    RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano, r.semestre;
+    // Substitua 15 pelo ID de um professor
+    MATCH (p:Professor {id_professor: 15})-[r:MINISTROU]->(d:Disciplina)
+    RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano,     r.semestre;
     ```
 *   **Alunos formados em um semestre/ano específico:**
     ```cypher
@@ -167,4 +167,3 @@ O arquivo `queries.cypher` contém exemplos de consultas para explorar os dados.
     ORDER BY tcc.id_tcc;
     ```
 
-Experimente com essas queries e crie as suas próprias para explorar os dados do grafo!
