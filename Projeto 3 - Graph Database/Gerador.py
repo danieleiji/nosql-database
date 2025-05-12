@@ -169,9 +169,9 @@ for al_id in shuffled_aluno_ids_para_formar:
     if al_id in alunos_ja_formados_ids or formados_count >= NUM_ALUNOS_FORMADOS_APROX :
         continue # Aluno já formado ou já atingimos o número desejado de formados
 
-    for mat_id, disciplinas_da_matriz in matriz_disciplinas_map.items():
+    for mat_id, disc_matriz in matriz_disciplinas_map.items():
         # Verifica se o aluno foi aprovado em todas as disciplinas da matriz curricular
-        if all(cod_d in alunos_aprovacoes[al_id] for cod_d in disciplinas_da_matriz):
+        if all(cod_d in alunos_aprovacoes[al_id] for cod_d in disc_matriz):
             # Determina o ano e semestre de formatura
             # O aluno deve se formar, no mínimo, no ano seguinte ao último ano em que cursou alguma disciplina
             ano_formacao_possivel = max(alunos_max_ano_curso[al_id] + 1, ANOS[0])
