@@ -191,7 +191,7 @@ for tcc_id in data_store["tccs"].keys():
         add_rel("Aluno", {'id_aluno': al_id_tcc}, "PARTICIPA_DE", {}, "TCC", {'id_tcc': tcc_id})
 
 # --- 3. Escrever Arquivos Cypher (constraints e escrita de nós/rels sem alteração) ---
-output_filenames = {"nodes": "nodes.cypher", "relationships": "relationships.cypher", "queries": "queries.cypher"}
+output_filenames = {"nodes": "nodes.cypher", "relationships": "relationships.cypher"}
 
 with open(output_filenames["nodes"], "w", encoding="utf-8") as f:
     f.write("MATCH (n) DETACH DELETE n;\n\n")
@@ -213,43 +213,4 @@ with open(output_filenames["relationships"], "w", encoding="utf-8") as f:
     f.write("// Criação de Relacionamentos\n" + "\n".join(cypher_rels_cmds))
 print(f"Arquivo '{output_filenames['relationships']}' gerado com {len(cypher_rels_cmds)} comandos de relacionamentos.")
 
-# Exemplo de IDs para queries
-ex_al_id = random.choice(all_aluno_ids) if all_aluno_ids else 1
-ex_prof_id = random.choice(all_prof_ids) if all_prof_ids else 1
-
-# Escolher um ano/semestre de formatura que REALMENTE foi gerado, se possível
-if formaturas_geradas_para_exemplo:
-    ex_ano_form, ex_sem_form = random.choice(formaturas_geradas_para_exemplo)
-else: # Fallback se, por algum motivo, nenhuma formatura foi gerada
-    ex_ano_form, ex_sem_form = random.choice(ANOS[-2:]), random.choice(SEMESTRES)
-
-
-queries_texto = f"""\
-// 1. Histórico escolar do aluno ID {ex_al_id}
-MATCH (a:Aluno {{id_aluno: {ex_al_id}}})-[r:CURSOU]->(d:Disciplina)
-RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
-
-// 2. Disciplinas ministradas pelo professor ID {ex_prof_id}
-MATCH (p:Professor {{id_professor: {ex_prof_id}}})-[r:MINISTROU]->(d:Disciplina)
-RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano, r.semestre;
-
-// 3. Alunos formados em {ex_sem_form}/{ex_ano_form} (Este semestre/ano teve formaturas geradas)
-MATCH (a:Aluno)-[f:FORMADO_EM {{semestre_formacao: {ex_sem_form}, ano_formacao: {ex_ano_form}}}]->(m:MatrizCurricular)
-RETURN a.id_aluno, a.nome_aluno, m.nome_matriz ORDER BY a.nome_aluno;
-//   Para testar outros anos/semestres, você pode verificar quais foram gerados:
-//   MATCH ()-[f:FORMADO_EM]->() RETURN DISTINCT f.ano_formacao, f.semestre_formacao ORDER BY f.ano_formacao, f.semestre_formacao;
-
-// 4. Professores chefes de departamento
-MATCH (p:Professor)-[:CHEFE_DE]->(d:Departamento)
-RETURN p.id_professor, p.nome_professor, d.nome_departamento ORDER BY d.nome_departamento;
-
-// 5. Grupos de TCC e orientadores
-MATCH (al:Aluno)-[:PARTICIPA_DE]->(tcc:TCC)<-[:ORIENTA]-(prof:Professor)
-RETURN tcc.id_tcc, tcc.titulo_tcc, prof.nome_professor AS orientador, collect({{id: al.id_aluno, nome: al.nome_aluno}}) AS grupo_alunos
-ORDER BY tcc.id_tcc;
-"""
-with open(output_filenames["queries"], "w", encoding="utf-8") as f:
-    f.write(queries_texto)
-print(f"Arquivo '{output_filenames['queries']}' gerado.")
-print(f"  (Exemplo de query para formados usará {ex_sem_form}/{ex_ano_form})")
 print("\nProcesso de geração concluído!")

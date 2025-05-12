@@ -22,7 +22,6 @@ O projeto consiste nos seguintes arquivos:
 *   `Gerador.py`: Script Python responsável por gerar os dados e os arquivos Cypher.
 *   `nodes.cypher`: Arquivo Cypher gerado contendo os comandos para criar os nós, constraints e índices no Neo4j.
 *   `relationships.cypher`: Arquivo Cypher gerado contendo os comandos para criar os relacionamentos entre os nós.
-*   `queries.cypher`: Arquivo Cypher gerado contendo exemplos de consultas para interagir com os dados no Neo4j.
 
 ---
 
@@ -66,7 +65,7 @@ O modelo de dados define as entidades (nós) e como elas se conectam (relacionam
 
 ## 4. Geração dos Dados
 
-Para gerar os arquivos Cypher (`nodes.cypher`, `relationships.cypher`, `queries.cypher`), execute o script Python:
+Para gerar os arquivos Cypher (`nodes.cypher`, `relationships.cypher`), execute o script Python:
 
 1.  Abra um terminal ou prompt de comando.
 2.  Navegue até o diretório onde você salvou o arquivo `Gerador.py`.
@@ -74,7 +73,7 @@ Para gerar os arquivos Cypher (`nodes.cypher`, `relationships.cypher`, `queries.
     ```bash
     python Gerador.py
     ```
-4.  Após a execução, os três arquivos `.cypher` serão criados no mesmo diretório.
+4.  Após a execução, os arquivos `nodes.cypher` e `relationships.cypher` serão criados no mesmo diretório.
 
 ---
 
@@ -117,47 +116,41 @@ Seus dados agora estão carregados no Neo4j!
 
 ## 6. Executando Consultas (Queries)
 
-O arquivo `queries.cypher` contém exemplos de consultas para explorar os dados. Veja como usá-las:
+Você pode executar consultas Cypher diretamente no Neo4j Browser para explorar os dados carregados.
 
 1.  **Abra o Neo4j Browser** (se ainda não estiver aberto e conectado ao seu banco de dados).
-2.  **Abra o arquivo `queries.cypher`** em um editor de texto.
-3.  **Copie uma Query:**
-    *   Selecione e copie uma das queries do arquivo. Por exemplo, para ver o histórico de um aluno:
+2.  **Escreva ou Cole uma Query:**
+    *   Você pode escrever suas próprias consultas Cypher ou colar exemplos. Por exemplo, para ver o histórico de um aluno específico (substitua `<ID_ALUNO>` por um ID real):
       ```cypher
-      // 1. Histórico escolar do aluno ID <ID_EXEMPLO>
-      MATCH (a:Aluno {id_aluno: <ID_EXEMPLO>})-[r:CURSOU]->(d:Disciplina)
+      MATCH (a:Aluno {id_aluno: <ID_ALUNO>})-[r:CURSOU]->(d:Disciplina)
       RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
       ```
-      *Nota: O arquivo `queries.cypher` gerado pelo script Python tentará preencher `<ID_EXEMPLO>` com um ID de aluno real dos dados gerados. Você pode usar esse ID ou escolher outro.*
-4.  **Cole e Execute no Neo4j Browser:**
-    *   Cole a query copiada na barra de consulta do Neo4j Browser.
-    *   Se a query usar um placeholder como `<ID_EXEMPLO>`, substitua-o por um ID válido de um aluno existente no seu banco.
-    *   Clique no ícone de "Play" ou pressione `Ctrl+Enter` / `Cmd+Enter`.
-5.  **Analise os Resultados:**
+3.  **Execute no Neo4j Browser:**
+    *   Cole a query na barra de consulta do Neo4j Browser.
+    *   Se a query usar um placeholder como `<ID_ALUNO>`, substitua-o por um ID válido de um aluno existente no seu banco.
+    *   Clique no ícone de "Play" (um triângulo apontando para a direita) ou pressione `Ctrl+Enter` (Windows/Linux) ou `Cmd+Enter` (Mac).
+4.  **Analise os Resultados:**
     *   Os resultados da sua consulta serão exibidos abaixo da barra de consulta, geralmente em formato de tabela ou visualização de grafo.
 
-**Importante:** Os IDs (`38`, `6`, etc.) e os valores de semestre/ano nas queries de exemplo abaixo são baseados nos exemplos do arquivo `queries.cypher`. **Verifique se esses IDs e valores específicos existem e retornam resultados significativos nos seus dados gerados antes de executar as consultas.** Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor LIMIT 5;` no Neo4j Browser para listar alguns IDs existentes.
+**Importante:** Ao testar consultas com IDs específicos (ex: `id_aluno: 38`), verifique se esses IDs existem nos seus dados gerados. Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor LIMIT 5;` no Neo4j Browser.
 
-**Exemplos de Queries (do arquivo `queries.cypher`):**
+**Exemplos de Consultas que você pode adaptar:**
 
-*   **Histórico escolar de um aluno:**
+*   **Histórico escolar de um aluno (ex: ID 38):**
     ```cypher
-    // O arquivo queries.cypher usa o ID 38 como exemplo
     MATCH (a:Aluno {id_aluno: 38})-[r:CURSOU]->(d:Disciplina)
     RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
     ```
-*   **Disciplinas ministradas por um professor:**
+*   **Disciplinas ministradas por um professor (ex: ID 6):**
     ```cypher
-    // O arquivo queries.cypher usa o ID 6 como exemplo
     MATCH (p:Professor {id_professor: 6})-[r:MINISTROU]->(d:Disciplina)
-    RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano,     r.semestre;
+    RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano, r.semestre;
     ```
-*   **Alunos formados em um semestre/ano específico:**
+*   **Alunos formados em um semestre/ano específico (ex: 1/2023):**
     ```cypher
-    // O arquivo queries.cypher usa 1/2023, um período para o qual o Gerador.py tenta criar dados.
     MATCH (a:Aluno)-[f:FORMADO_EM {semestre_formacao: 1, ano_formacao: 2023}]->(m:MatrizCurricular)
-    RETURN a.id_aluno, a.nome_aluno, m.nome_matriz ORDER BY a.nome_aluno;
-    // Para testar outros anos/semestres, você pode verificar quais foram gerados:
+    RETURN a.id_aluno, a.nome_aluno, m.nome_matriz AS NomeMatriz, f.ano_formacao AS AnoFormatura, f.semestre_formacao AS SemestreFormatura ORDER BY a.nome_aluno;
+    // Para verificar quais anos/semestres de formatura foram realmente gerados:
     // MATCH ()-[f:FORMADO_EM]->() RETURN DISTINCT f.ano_formacao, f.semestre_formacao ORDER BY f.ano_formacao, f.semestre_formacao;
     ```
 *   **Professores chefes de departamento:**
