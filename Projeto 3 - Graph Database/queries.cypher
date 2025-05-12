@@ -1,13 +1,13 @@
-// 1. Histórico escolar do aluno ID 40
-MATCH (a:Aluno {id_aluno: 40})-[r:CURSOU]->(d:Disciplina)
+// 1. Histórico escolar do aluno ID 38
+MATCH (a:Aluno {id_aluno: 38})-[r:CURSOU]->(d:Disciplina)
 RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
 
-// 2. Disciplinas ministradas pelo professor ID 7
-MATCH (p:Professor {id_professor: 7})-[r:MINISTROU]->(d:Disciplina)
+// 2. Disciplinas ministradas pelo professor ID 6
+MATCH (p:Professor {id_professor: 6})-[r:MINISTROU]->(d:Disciplina)
 RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano, r.semestre;
 
-// 3. Alunos formados em 2/2024 (Este semestre/ano teve formaturas geradas)
-MATCH (a:Aluno)-[f:FORMADO_EM {semestre_formacao: 2, ano_formacao: 2024}]->(m:MatrizCurricular)
+// 3. Alunos formados em 1/2023 (Este semestre/ano teve formaturas geradas)
+MATCH (a:Aluno)-[f:FORMADO_EM {semestre_formacao: 1, ano_formacao: 2023}]->(m:MatrizCurricular)
 RETURN a.id_aluno, a.nome_aluno, m.nome_matriz ORDER BY a.nome_aluno;
 //   Para testar outros anos/semestres, você pode verificar quais foram gerados:
 //   MATCH ()-[f:FORMADO_EM]->() RETURN DISTINCT f.ano_formacao, f.semestre_formacao ORDER BY f.ano_formacao, f.semestre_formacao;

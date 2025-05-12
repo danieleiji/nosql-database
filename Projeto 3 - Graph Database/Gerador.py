@@ -4,25 +4,23 @@ from faker import Faker
 fake = Faker('pt_BR')
 
 # --- Configurações ---
-NUM_ALUNOS = 40 # MODIFICADO
-NUM_PROFESSORES = 15 # MODIFICADO
+NUM_ALUNOS = 60 
+NUM_PROFESSORES = 15
 NUM_DEPARTAMENTOS = 5
 NUM_MATRIZES = 3
-NUM_TCCS = 10 # MODIFICADO
-# Aumentar um pouco a chance de ter formados para testar
-NUM_ALUNOS_FORMADOS_APROX = NUM_ALUNOS // 2 # Metade dos alunos tentarão se formar
+NUM_TCCS = 10
+NUM_ALUNOS_FORMADOS_APROX = NUM_ALUNOS // 2 
 MIN_DISC_POR_MATRIZ = 4
 MAX_DISC_POR_MATRIZ = 7
 MIN_ALUNOS_TCC = 2
 MAX_ALUNOS_TCC = 4
 ANOS = list(range(2020, 2025))
 SEMESTRES = [1, 2]
-NOTA_APROVACAO = 7.0
+NOTA_APROVACAO = 4.0
 
 # Anos/Semestres específicos para garantir formados para teste
-ANOS_TESTE_FORMATURA = [2023, 2022] # Anos que queremos garantir formados
-SEMESTRES_TESTE_FORMATURA = [1, 2] # Semestres para esses anos
-
+ANOS_TESTE_FORMATURA = [2023, 2022]
+SEMESTRES_TESTE_FORMATURA = [1, 2]
 disciplinas_base_nomes = [
     "Cálculo I", "Álgebra Linear", "Algoritmos", "Computação Gráfica",
     "Autômatos", "Compiladores", "Banco de Dados", "Redes", "POO",
@@ -95,7 +93,7 @@ for i, dept_id in enumerate(data_store["departamentos"].keys()):
 matriz_disciplinas_map = {}
 for mat_id in data_store["matrizes"].keys():
     num_disc = random.randint(MIN_DISC_POR_MATRIZ, min(MAX_DISC_POR_MATRIZ, len(all_disc_cods)))
-    matriz_disciplinas_map[mat_id] = random.sample(all_disc_cods, num_disc)
+    matriz_disciplinas_map[mat_id] = random.sample(all_disc_cods, num_disc) # num_disc está entre 4 e 7
     for cod_disc in matriz_disciplinas_map[mat_id]:
         add_rel("MatrizCurricular", {'id_matriz': mat_id}, "CONTEM_DISCIPLINA", {}, "Disciplina", {'codigo_disciplina': cod_disc})
 
@@ -104,10 +102,19 @@ alunos_aprovacoes = {al_id: {} for al_id in all_aluno_ids}
 # Também rastrear o ano máximo de curso para cada aluno para a lógica de formatura
 alunos_max_ano_curso = {al_id: 0 for al_id in all_aluno_ids}
 
+# Determinar quais alunos tentarão se formar (para cursarem mais disciplinas)
+alunos_candidatos_formatura = set(random.sample(all_aluno_ids, NUM_ALUNOS_FORMADOS_APROX))
+
 for al_id in all_aluno_ids:
-    num_cursadas = random.randint(max(1, len(all_disc_cods) // 4), max(2, len(all_disc_cods) // 3)) # MODIFICADO
+    if al_id in alunos_candidatos_formatura:
+        # Alunos candidatos à formatura cursam mais disciplinas
+        num_cursadas = random.randint(MIN_DISC_POR_MATRIZ, min(MAX_DISC_POR_MATRIZ + 2, len(all_disc_cods)))
+    else:
+        # Outros alunos cursam menos disciplinas
+        num_cursadas = random.randint(max(1, len(all_disc_cods) // 5), max(2, len(all_disc_cods) // 4)) # Ajustado para ainda menos
+    
     for cod_disc in random.sample(all_disc_cods, num_cursadas):
-        ano_cursado = random.choice(ANOS[:-1]) # Cursa nos anos anteriores ao último ano possível
+        ano_cursado = random.choice(ANOS[:-1]) 
         nota = round(random.uniform(0.0, 10.0), 1)
         props_cursou = {'semestre': random.choice(SEMESTRES), 'ano': ano_cursado, 'nota_final': nota}
         add_rel("Aluno", {'id_aluno': al_id}, "CURSOU", props_cursou, "Disciplina", {'codigo_disciplina': cod_disc})
@@ -118,7 +125,8 @@ for al_id in all_aluno_ids:
 
 
 # Aluno FORMADO_EM MatrizCurricular - LÓGICA MELHORADA
-shuffled_aluno_ids_para_formar = random.sample(all_aluno_ids, NUM_ALUNOS_FORMADOS_APROX)
+shuffled_aluno_ids_para_formar = list(alunos_candidatos_formatura) # Usar os mesmos candidatos
+random.shuffle(shuffled_aluno_ids_para_formar) # Embaralhar para a ordem de processamento da formatura
 formados_count = 0
 alunos_ja_formados_ids = set() # Para garantir que um aluno não se forme duas vezes
 

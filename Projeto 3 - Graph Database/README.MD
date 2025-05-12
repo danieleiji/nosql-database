@@ -136,27 +136,29 @@ O arquivo `queries.cypher` contém exemplos de consultas para explorar os dados.
 5.  **Analise os Resultados:**
     *   Os resultados da sua consulta serão exibidos abaixo da barra de consulta, geralmente em formato de tabela ou visualização de grafo.
 
-**Importante:** Os IDs (`5`, `2`, etc.) e os valores de semestre/ano nas queries de exemplo abaixo são apenas ilustrativos. **Verifique se esses IDs e valores específicos existem nos seus dados gerados antes de executar as consultas.** Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor LIMIT 5;` no Neo4j Browser para listar alguns IDs existentes.
+**Importante:** Os IDs (`38`, `6`, etc.) e os valores de semestre/ano nas queries de exemplo abaixo são baseados nos exemplos do arquivo `queries.cypher`. **Verifique se esses IDs e valores específicos existem e retornam resultados significativos nos seus dados gerados antes de executar as consultas.** Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor LIMIT 5;` no Neo4j Browser para listar alguns IDs existentes.
 
 **Exemplos de Queries (do arquivo `queries.cypher`):**
 
 *   **Histórico escolar de um aluno:**
     ```cypher
-    // Substitua 5 pelo ID de um aluno existente
-    MATCH (a:Aluno {id_aluno: 5})-[r:CURSOU]->(d:Disciplina)
+    // O arquivo queries.cypher usa o ID 38 como exemplo
+    MATCH (a:Aluno {id_aluno: 38})-[r:CURSOU]->(d:Disciplina)
     RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
     ```
 *   **Disciplinas ministradas por um professor:**
     ```cypher
-    // Substitua 2 pelo ID de um professor existente
-    MATCH (p:Professor {id_professor: 2})-[r:MINISTROU]->(d:Disciplina)
+    // O arquivo queries.cypher usa o ID 6 como exemplo
+    MATCH (p:Professor {id_professor: 6})-[r:MINISTROU]->(d:Disciplina)
     RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano,     r.semestre;
     ```
 *   **Alunos formados em um semestre/ano específico:**
     ```cypher
-    // Verifique se existem alunos formados no semestre 1 de 2022 nos seus dados
-    MATCH (a:Aluno)-[f:FORMADO_EM {semestre_formacao: 1, ano_formacao: 2022}]->(m:MatrizCurricular)
+    // O arquivo queries.cypher usa 1/2023, um período para o qual o Gerador.py tenta criar dados.
+    MATCH (a:Aluno)-[f:FORMADO_EM {semestre_formacao: 1, ano_formacao: 2023}]->(m:MatrizCurricular)
     RETURN a.id_aluno, a.nome_aluno, m.nome_matriz ORDER BY a.nome_aluno;
+    // Para testar outros anos/semestres, você pode verificar quais foram gerados:
+    // MATCH ()-[f:FORMADO_EM]->() RETURN DISTINCT f.ano_formacao, f.semestre_formacao ORDER BY f.ano_formacao, f.semestre_formacao;
     ```
 *   **Professores chefes de departamento:**
     ```cypher
