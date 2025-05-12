@@ -155,24 +155,31 @@ Você pode executar consultas Cypher diretamente no Neo4j Browser para explorar 
     ORDER BY r.ano, r.semestre;
     ```
 
-*   **3. Listar alunos que já se formaram em um determinado semestre de um ano (substitua `<ANO>` e `<SEMESTRE>`):**
+*   **3. Listar alunos que concluíram um determinado semestre de um ano com todas as notas acima de 4.0 (substitua `<ANO>` e `<SEMESTRE>`):**
     ```cypher
-    // Exemplo: Alunos formados no semestre 1 do ano 2023
-    // Substitua os valores de ano_desejado e semestre_desejado conforme necessário
-    WITH 2023 AS ano_desejado, 1 AS semestre_desejado
-    MATCH (aluno:Aluno)-[f:FORMADO_EM]->(matriz:MatrizCurricular)
-    WHERE f.ano_formacao = ano_desejado AND f.semestre_formacao = semestre_desejado
+    // Esta consulta identifica alunos que, em um semestre e ano específicos,
+    // obtiveram nota superior a 4.0 em TODAS as disciplinas cursadas naquele período.
+    // Altere os valores de semestre_desejado e ano_desejado conforme sua necessidade.
+    WITH 1 AS semestre_desejado, 2023 AS ano_desejado
+
+    MATCH (aluno:Aluno)-[r:CURSOU]->(disciplina:Disciplina)
+    WHERE r.semestre = semestre_desejado AND r.ano = ano_desejado
+
+    WITH aluno, semestre_desejado, ano_desejado, collect(r.nota_final) AS notas_do_semestre_especifico
+    WHERE size(notas_do_semestre_especifico) > 0 // Garante que o aluno cursou algo no período
+      AND none(nota IN notas_do_semestre_especifico WHERE nota <= 4.0) // Nenhuma nota menor ou igual a 4.0
+
     RETURN aluno.id_aluno AS IDAluno,
            aluno.nome_aluno AS NomeAluno,
-           matriz.nome_matriz AS MatrizCurricular,
-           f.ano_formacao AS AnoFormatura,
-           f.semestre_formacao AS SemestreFormatura
+           semestre_desejado,
+           ano_desejado,
+           notas_do_semestre_especifico AS NotasNoSemestreAno
     ORDER BY NomeAluno;
 
-    // Para verificar QUAIS anos/semestres de formatura foram realmente gerados pelo script:
-    // MATCH ()-[f:FORMADO_EM]->()
-    // RETURN DISTINCT f.ano_formacao AS AnoFormatura, f.semestre_formacao AS SemestreFormatura
-    // ORDER BY AnoFormatura, SemestreFormatura;
+    // Para verificar QUAIS anos/semestres possuem dados de alunos cursando disciplinas:
+    // MATCH (a:Aluno)-[r:CURSOU]->(d:Disciplina)
+    // RETURN DISTINCT r.ano AS AnoCursado, r.semestre AS SemestreCursado
+    // ORDER BY AnoCursado, SemestreCursado;
     ```
 
 *   **4. Listar todos os professores que são chefes de departamento, junto com o nome do departamento:**
