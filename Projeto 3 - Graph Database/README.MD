@@ -120,48 +120,79 @@ Você pode executar consultas Cypher diretamente no Neo4j Browser para explorar 
 
 1.  **Abra o Neo4j Browser** (se ainda não estiver aberto e conectado ao seu banco de dados).
 2.  **Escreva ou Cole uma Query:**
-    *   Você pode escrever suas próprias consultas Cypher ou colar exemplos. Por exemplo, para ver o histórico de um aluno específico (substitua `<ID_ALUNO>` por um ID real):
-      ```cypher
-      MATCH (a:Aluno {id_aluno: <ID_ALUNO>})-[r:CURSOU]->(d:Disciplina)
-      RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
-      ```
+    *   Você pode escrever suas próprias consultas Cypher ou colar exemplos.
 3.  **Execute no Neo4j Browser:**
     *   Cole a query na barra de consulta do Neo4j Browser.
-    *   Se a query usar um placeholder como `<ID_ALUNO>`, substitua-o por um ID válido de um aluno existente no seu banco.
+    *   Se a query usar um placeholder como `<ID_ALUNO>`, `<ID_PROFESSOR>`, `<ANO>`, ou `<SEMESTRE>`, substitua-o por um valor válido existente no seu banco de dados.
     *   Clique no ícone de "Play" (um triângulo apontando para a direita) ou pressione `Ctrl+Enter` (Windows/Linux) ou `Cmd+Enter` (Mac).
 4.  **Analise os Resultados:**
-    *   Os resultados da sua consulta serão exibidos abaixo da barra de consulta, geralmente em formato de tabela ou visualização de grafo.
+    *   Os resultados da sua consulta serão exibidos abaixo da barra de consulta.
 
-**Importante:** Ao testar consultas com IDs específicos (ex: `id_aluno: 38`), verifique se esses IDs existem nos seus dados gerados. Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor LIMIT 5;` no Neo4j Browser.
+**Importante:** Ao testar consultas com IDs específicos (ex: `id_aluno: 1`), verifique se esses IDs existem nos seus dados gerados. Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno, a.nome_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor, p.nome_professor LIMIT 5;` no Neo4j Browser. Para a consulta de formados, use a query de verificação para saber quais anos/semestres têm dados.
 
-**Exemplos de Consultas que você pode adaptar:**
+**Exemplos de Consultas:**
 
-*   **Histórico escolar de um aluno (ex: ID 38):**
+*   **1. Histórico escolar de um aluno (substitua `<ID_ALUNO>` por um ID real):**
     ```cypher
-    MATCH (a:Aluno {id_aluno: 38})-[r:CURSOU]->(d:Disciplina)
-    RETURN d.codigo_disciplina, d.nome_disciplina, r.semestre, r.ano, r.nota_final ORDER BY r.ano, r.semestre;
+    // Exemplo: Para o aluno com id_aluno = 1
+    MATCH (a:Aluno {id_aluno: 1})-[r:CURSOU]->(d:Disciplina)
+    RETURN d.codigo_disciplina AS CodigoDisciplina,
+           d.nome_disciplina AS NomeDisciplina,
+           r.semestre AS SemestreCursado,
+           r.ano AS AnoCursado,
+           r.nota_final AS NotaFinal
+    ORDER BY r.ano, r.semestre;
     ```
-*   **Disciplinas ministradas por um professor (ex: ID 6):**
+
+*   **2. Histórico de disciplinas ministradas por um professor (substitua `<ID_PROFESSOR>` por um ID real):**
     ```cypher
-    MATCH (p:Professor {id_professor: 6})-[r:MINISTROU]->(d:Disciplina)
-    RETURN d.nome_disciplina, r.semestre, r.ano ORDER BY r.ano, r.semestre;
+    // Exemplo: Para o professor com id_professor = 1
+    MATCH (p:Professor {id_professor: 1})-[r:MINISTROU]->(d:Disciplina)
+    RETURN d.codigo_disciplina AS CodigoDisciplina,
+           d.nome_disciplina AS NomeDisciplina,
+           r.semestre AS SemestreMinistrado,
+           r.ano AS AnoMinistrado
+    ORDER BY r.ano, r.semestre;
     ```
-*   **Alunos formados em um semestre/ano específico (ex: 1/2023):**
+
+*   **3. Listar alunos que já se formaram em um determinado semestre de um ano (substitua `<ANO>` e `<SEMESTRE>`):**
     ```cypher
-    MATCH (a:Aluno)-[f:FORMADO_EM {semestre_formacao: 1, ano_formacao: 2023}]->(m:MatrizCurricular)
-    RETURN a.id_aluno, a.nome_aluno, m.nome_matriz AS NomeMatriz, f.ano_formacao AS AnoFormatura, f.semestre_formacao AS SemestreFormatura ORDER BY a.nome_aluno;
-    // Para verificar quais anos/semestres de formatura foram realmente gerados:
-    // MATCH ()-[f:FORMADO_EM]->() RETURN DISTINCT f.ano_formacao, f.semestre_formacao ORDER BY f.ano_formacao, f.semestre_formacao;
+    // Exemplo: Alunos formados no semestre 1 do ano 2023
+    // Substitua os valores de ano_desejado e semestre_desejado conforme necessário
+    WITH 2023 AS ano_desejado, 1 AS semestre_desejado
+    MATCH (aluno:Aluno)-[f:FORMADO_EM]->(matriz:MatrizCurricular)
+    WHERE f.ano_formacao = ano_desejado AND f.semestre_formacao = semestre_desejado
+    RETURN aluno.id_aluno AS IDAluno,
+           aluno.nome_aluno AS NomeAluno,
+           matriz.nome_matriz AS MatrizCurricular,
+           f.ano_formacao AS AnoFormatura,
+           f.semestre_formacao AS SemestreFormatura
+    ORDER BY NomeAluno;
+
+    // Para verificar QUAIS anos/semestres de formatura foram realmente gerados pelo script:
+    // MATCH ()-[f:FORMADO_EM]->()
+    // RETURN DISTINCT f.ano_formacao AS AnoFormatura, f.semestre_formacao AS SemestreFormatura
+    // ORDER BY AnoFormatura, SemestreFormatura;
     ```
-*   **Professores chefes de departamento:**
+
+*   **4. Listar todos os professores que são chefes de departamento, junto com o nome do departamento:**
     ```cypher
     MATCH (p:Professor)-[:CHEFE_DE]->(d:Departamento)
-    RETURN p.id_professor, p.nome_professor, d.nome_departamento ORDER BY d.nome_departamento;
+    RETURN p.id_professor AS IDProfessor,
+           p.nome_professor AS NomeProfessor,
+           d.nome_departamento AS NomeDepartamento
+    ORDER BY NomeDepartamento, NomeProfessor;
     ```
-*   **Grupos de TCC e orientadores:**
+
+*   **5. Saber quais alunos formaram um grupo de TCC e qual professor foi o orientador:**
     ```cypher
-    MATCH (al:Aluno)-[:PARTICIPA_DE]->(tcc:TCC)<-[:ORIENTA]-(prof:Professor)
-    RETURN tcc.id_tcc, tcc.titulo_tcc, prof.nome_professor AS orientador, collect({id: al.id_aluno, nome: al.nome_aluno}) AS grupo_alunos
-    ORDER BY tcc.id_tcc;
+    MATCH (aluno:Aluno)-[:PARTICIPA_DE]->(tcc:TCC)<-[:ORIENTA]-(professor:Professor)
+    RETURN tcc.id_tcc AS ID_TCC,
+           tcc.titulo_tcc AS TituloTCC,
+           professor.nome_professor AS NomeOrientador,
+           collect({id_aluno: aluno.id_aluno, nome_aluno: aluno.nome_aluno}) AS GrupoAlunos
+    ORDER BY ID_TCC, NomeOrientador;
     ```
+
+---
 
