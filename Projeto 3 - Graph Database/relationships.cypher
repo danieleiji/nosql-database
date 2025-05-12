@@ -1,4 +1,4 @@
-// Criação de Relacionamentos
+// Criação de Relacionamento
 MATCH (a:Professor {id_professor: 11}), (b:Departamento {id_departamento: 1}) CREATE (a)-[:CHEFE_DE]->(b);
 MATCH (a:Professor {id_professor: 10}), (b:Departamento {id_departamento: 2}) CREATE (a)-[:CHEFE_DE]->(b);
 MATCH (a:Professor {id_professor: 2}), (b:Departamento {id_departamento: 3}) CREATE (a)-[:CHEFE_DE]->(b);

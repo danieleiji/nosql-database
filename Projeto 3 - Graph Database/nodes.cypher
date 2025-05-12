@@ -1,6 +1,6 @@
 MATCH (n) DETACH DELETE n;
 
-// Constraints e Índices
+// Constraints e Índice
 CREATE CONSTRAINT IF NOT EXISTS FOR (a:Aluno) REQUIRE a.id_aluno IS UNIQUE;
 CREATE INDEX IF NOT EXISTS FOR (a:Aluno) ON (a.nome_aluno);
 CREATE CONSTRAINT IF NOT EXISTS FOR (p:Professor) REQUIRE p.id_professor IS UNIQUE;

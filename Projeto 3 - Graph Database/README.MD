@@ -25,6 +25,12 @@ O projeto consiste nos seguintes arquivos:
 
 ---
 
+## Integrantes
+
+*   Daniel Eiji Osato Yoshida - RA: 22.121.131-1
+
+---
+
 ## 3. Modelo de Dados
 
 O modelo de dados define as entidades (nós) e como elas se conectam (relacionamentos) no grafo.
@@ -117,10 +123,11 @@ Seus dados agora estão carregados no Neo4j!
 ## 6. Executando Consultas (Queries)
 
 Você pode executar consultas Cypher diretamente no Neo4j Browser para explorar os dados carregados.
+Esta seção também apresenta as 5 consultas solicitadas no item 4 dos critérios de avaliação do projeto, demonstrando como validar diferentes aspectos do modelo de dados e dos relacionamentos criados. Estas consultas servem para validar a estrutura e os dados inseridos, conforme solicitado no item 5 da entrega (descrição de como validar as queries).
 
 1.  **Abra o Neo4j Browser** (se ainda não estiver aberto e conectado ao seu banco de dados).
 2.  **Escreva ou Cole uma Query:**
-    *   Você pode escrever suas próprias consultas Cypher ou colar exemplos.
+    *   Você pode escrever suas próprias consultas Cypher ou colar os exemplos abaixo.
 3.  **Execute no Neo4j Browser:**
     *   Cole a query na barra de consulta do Neo4j Browser.
     *   Se a query usar um placeholder como `<ID_ALUNO>`, `<ID_PROFESSOR>`, `<ANO>`, ou `<SEMESTRE>`, substitua-o por um valor válido existente no seu banco de dados.
@@ -130,7 +137,7 @@ Você pode executar consultas Cypher diretamente no Neo4j Browser para explorar 
 
 **Importante:** Ao testar consultas com IDs específicos (ex: `id_aluno: 1`), verifique se esses IDs existem nos seus dados gerados. Você pode encontrar IDs válidos executando consultas como `MATCH (a:Aluno) RETURN a.id_aluno, a.nome_aluno LIMIT 5;` ou `MATCH (p:Professor) RETURN p.id_professor, p.nome_professor LIMIT 5;` no Neo4j Browser. Para a consulta de formados, use a query de verificação para saber quais anos/semestres têm dados.
 
-**Exemplos de Consultas:**
+**Consultas de Validação (Item 4 da Entrega):**
 
 *   **1. Histórico escolar de um aluno (substitua `<ID_ALUNO>` por um ID real):**
     ```cypher
