@@ -24,9 +24,9 @@ def query_historico_aluno(db):
         '$project': {
           '_id': 0,
           'nome_aluno': '$nome',
-          'curso_id': '$curso_id', # Adicionado para contexto
-          'graduado': '$graduado', # Adicionado para contexto
-          'semestre_graduacao': '$semestre_graduacao', # Adicionado para contexto
+          'curso_id': '$curso_id',
+          'graduado': '$graduado',
+          'semestre_graduacao': '$semestre_graduacao',
           'historico_formatado': {
             '$map': {
               'input': '$historico',
@@ -36,7 +36,7 @@ def query_historico_aluno(db):
                 'nome_disciplina': '$$item.nome',
                 'semestre_cursado': '$$item.semestre',
                 'nota': '$$item.nota_final',
-                'status': '$$item.status' # Adicionado status
+                'status': '$$item.status'
               }
             }
           }
@@ -229,7 +229,7 @@ def query_chefes_departamento(db):
 
 
 def query_grupo_tcc(db):
-    """Query 5: Detalhes de um grupo de TCC (alunos e orientador)."""
+    """Query 5: Detalhes de um grupo de TCC."""
     try:
         grupo_id_str = input("Digite o ID do grupo de TCC: ")
         grupo_id = int(grupo_id_str)
@@ -238,48 +238,31 @@ def query_grupo_tcc(db):
         return
 
     pipeline = [
-      { '$match': { '_id': grupo_id } },
-      {
-        '$lookup': {
-          'from': 'professores',
-          'localField': 'orientador_id',
-          'foreignField': '_id',
-          'as': 'orientador_info'
-        }
-      },
-      {
-        '$lookup': {
-          'from': 'alunos',
-          'localField': 'alunos_ids',
-          'foreignField': '_id',
-          'as': 'alunos_info'
-        }
-      },
-      # Unwind do orientador para facilitar o acesso (assume 1 orientador)
-      # Usar preserveNullAndEmptyArrays caso um grupo possa existir sem orientador (improvável)
-      { '$unwind': {'path': '$orientador_info', 'preserveNullAndEmptyArrays': True} },
-      {
-        '$project': {
-          '_id': 0,
-          'grupo_id': '$_id',
-          'semestre_tcc': '$semestre',
-          'orientador': { # Será null se o lookup/unwind não encontrar
-            'id': '$orientador_info._id',
-            'nome': '$orientador_info.nome'
-          },
-          'alunos': {
-            '$map': {
-              'input': '$alunos_info', # alunos_info será [] se o lookup não achar nenhum
-              'as': 'aluno',
-              'in': {
-                'id': '$$aluno._id',
-                'nome': '$$aluno.nome'
-              }
+        {'$match': {'_id': grupo_id}},
+        {'$lookup': {
+            'from': 'professores',
+            'localField': 'orientador_id',
+            'foreignField': '_id',
+            'as': 'orientador_info'
+        }},
+        {'$lookup': {
+            'from': 'alunos',
+            'localField': 'alunos_ids',
+            'foreignField': '_id',
+            'as': 'alunos_info'
+        }},
+        {'$unwind': {'path': '$orientador_info', 'preserveNullAndEmptyArrays': True}}, # Lida com grupos sem orientador
+        {
+            '$project': {
+                '_id': 0,
+                'grupo_id': '$_id',
+                'semestre_tcc': '$semestre',
+                'orientador_nome': '$orientador_info.nome', # Pode ser null
+                'alunos_nomes': '$alunos_info.nome' # Lista de nomes
             }
-          }
         }
-      }
     ]
+
     try:
         resultado = list(db.grupos_tcc.aggregate(pipeline))
         if resultado:
@@ -287,18 +270,13 @@ def query_grupo_tcc(db):
             print("\n--- Detalhes do Grupo de TCC ---")
             print(f"Grupo ID: {grupo_data.get('grupo_id')}")
             print(f"Semestre: {grupo_data.get('semestre_tcc')}")
-            orientador = grupo_data.get('orientador')
-            if orientador and orientador.get('id'):
-                 print(f"Orientador: ID {orientador.get('id')}, Nome: {orientador.get('nome')}")
+            print(f"Orientador: {grupo_data.get('orientador_nome', '(Não definido)')}")
+            print("Alunos Participantes:")
+            if grupo_data.get('alunos_nomes'):
+                for nome_aluno in grupo_data['alunos_nomes']:
+                    print(f"  - {nome_aluno}")
             else:
-                 print("Orientador: (Não encontrado ou não definido)")
-            print("Alunos:")
-            alunos_lista = grupo_data.get('alunos')
-            if alunos_lista:
-                for aluno in alunos_lista:
-                     print(f"  - ID: {aluno.get('id')}, Nome: {aluno.get('nome')}")
-            else:
-                print("  (Nenhum aluno encontrado neste grupo)")
+                print("  (Nenhum aluno registrado no grupo)")
         else:
             print(f"Grupo de TCC com ID {grupo_id} não encontrado.")
     except OperationFailure as e:

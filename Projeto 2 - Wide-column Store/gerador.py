@@ -159,4 +159,4 @@ def save_to_cql_files(alunos, professores, departamentos, formados, grupos):
 alunos, professores, departamentos, formados, grupos = generate_insert_statements()
 # Salva os dados gerados nos arquivos .cql
 save_to_cql_files(alunos, professores, departamentos, formados, grupos)
-print("CQL files generated successfully with integer IDs!") # Mensagem de sucesso
+print("Files CQL foram gerados com sucesso") # Mensagem de sucesso

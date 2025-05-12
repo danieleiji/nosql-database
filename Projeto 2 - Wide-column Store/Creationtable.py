@@ -62,6 +62,6 @@ if __name__ == "__main__":
     session = get_cassandra_session()
     # Chama a função para criar as tabelas
     create_tables(session)
-    print("Tables created or updated successfully!")
+    print("Tabelas Criada com Sucesso!")
     # Fecha a conexão com o cluster
     session.cluster.shutdown()
